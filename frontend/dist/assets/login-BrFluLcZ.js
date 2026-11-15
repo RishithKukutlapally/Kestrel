@@ -1,0 +1,1 @@
+import"./styles-13Dood97.js";var e=new URLSearchParams(window.location.search).get(`error`);if(e){let t=document.getElementById(`login-error`);t.textContent=e===`throttled`?`Too many attempts. Wait a minute and try again.`:`Username or password is not correct.`,t.classList.remove(`hidden`)}

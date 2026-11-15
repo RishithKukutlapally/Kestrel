@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kestrel Slice Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0037b0; --primary-c: #1d4ed8; --ink: #0b1c30; --ink-2: #434655;
+    --inverse: #213145; --surface: #f8f9ff; --card: #ffffff; --line: #d3e4fe;
+    --soft: #eff4ff; --soft-2: #e5eeff; --error: #ba1a1a; --error-c: #ffdad6;
+    --tertiary: #7f2500; --tertiary-c: #ffdbcf; --ok: #065f46; --ok-c: #ecfdf5;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--surface); color: var(--ink);
+    font: 15px/1.6 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--primary-c); }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--primary-c); outline-offset: 2px; }
+  .banner { background: var(--tertiary); color: #fff; text-align: center; font-weight: 600;
+    font-size: 13px; padding: 6px 16px; letter-spacing: .02em; }
+  header.top { background: var(--inverse); color: #eaf1ff; padding: 28px 16px 24px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header.top .wrap { padding: 0; }
+  header.top h1 { margin: 0 0 6px; font-size: 28px; line-height: 1.25; letter-spacing: -.015em; }
+  header.top p { margin: 0; color: #c4c5d7; max-width: 760px; }
+  nav.jump { position: sticky; top: 0; z-index: 5; background: #fff; border-bottom: 1px solid var(--line); }
+  nav.jump ul { list-style: none; margin: 0 auto; padding: 8px 16px; max-width: 1040px;
+    display: flex; gap: 4px 14px; flex-wrap: wrap; font-size: 13px; font-weight: 600; }
+  nav.jump a { text-decoration: none; color: var(--inverse); padding: 4px 2px; }
+  nav.jump a:hover { color: var(--primary-c); }
+  main section { padding: 32px 0 8px; }
+  h2 { font-size: 22px; letter-spacing: -.01em; margin: 0 0 12px; color: var(--ink); }
+  h2 .num { color: var(--primary-c); margin-right: 6px; }
+  h3 { font-size: 16px; margin: 0 0 6px; }
+  p { margin: 0 0 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+  .grid { display: grid; gap: 12px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .kpis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 16px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .kpi b { display: block; font-size: 22px; color: var(--primary); letter-spacing: -.01em; }
+  .kpi span { font-size: 12px; color: var(--ink-2); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .summary { background: var(--soft); border-left: 4px solid var(--primary-c); border-radius: 8px; padding: 16px; }
+  .summary ul { margin: 6px 0 0; padding-left: 18px; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--soft-2); vertical-align: top; }
+  thead th { background: var(--soft); font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: var(--ink-2); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pill { display: inline-block; border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .yes { background: var(--ok-c); color: var(--ok); border: 1px solid #a7f3d0; }
+  .ro  { background: var(--soft-2); color: var(--primary); border: 1px solid var(--line); }
+  .no  { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+  .built { background: var(--ok-c); color: var(--ok); border: 1px solid #a7f3d0; }
+  .planned { background: var(--tertiary-c); color: #832700; border: 1px solid #ffb59c; }
+  .unverified { background: var(--error-c); color: #93000a; border: 1px solid #fecaca; }
+  .qa { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+  .qa .q { font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+  .qa ul { margin: 4px 0 0; padding-left: 18px; }
+  .qa li { margin-bottom: 4px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;
+    background: var(--soft); padding: 1px 5px; border-radius: 4px; word-break: break-word; }
+  .diagram { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+  .diagram svg { width: 100%; height: auto; display: block; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; }
+  .flow .step { flex: 1 1 150px; background: var(--soft); border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: 13px; }
+  .flow .step b { display: block; color: var(--primary); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .flow .arrow { align-self: center; color: var(--primary-c); font-weight: 700; }
+  .warn { background: var(--error-c); border-left: 4px solid var(--error); border-radius: 8px; padding: 12px 16px; color: #410002; }
+  .note { font-size: 13px; color: var(--ink-2); }
+  /* Mock of the Oversight agent panel (static) */
+  .mocklabel { display: inline-block; background: var(--inverse); color: #eaf1ff; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .mock { background: #fff; border: 2px dashed #c4c5d7; border-radius: 10px; padding: 14px; }
+  .agent { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; }
+  .agent-head { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .agent-head h3 { margin: 0; }
+  .fields { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); margin-bottom: 3px; }
+  .field .ctl { height: 32px; border: 1px solid #cbd5e1; border-radius: 4px; background: #fff; padding: 0 10px;
+    display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--ink); }
+  .field .ctl::after { content: "▾"; color: var(--ink-2); font-size: 11px; }
+  .field .ctl.input::after { content: ""; }
+  .field .area { border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 10px; font-size: 13px; min-height: 64px; background: #fff; color: var(--ink); }
+  .toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+  .toggle i { width: 34px; height: 18px; border-radius: 999px; background: var(--primary-c); position: relative; display: inline-block; }
+  .toggle i::after { content: ""; position: absolute; top: 2px; left: 18px; width: 14px; height: 14px; border-radius: 50%; background: #fff; }
+  .toggle.off i { background: #c4c5d7; }
+  .toggle.off i::after { left: 2px; }
+  .btn { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 4px; font-size: 13px; font-weight: 600; }
+  .btn.primary { background: var(--primary); color: #fff; }
+  .btn.ghost { background: var(--soft-2); color: var(--ink); }
+  .lastchange { background: var(--soft); border-radius: 6px; padding: 8px 10px; font-size: 13px; margin-top: 10px; }
+  .versions { list-style: none; padding: 0; margin: 8px 0 0; font-size: 12px; color: var(--ink-2); }
+  .versions li { padding: 4px 0; border-top: 1px solid var(--soft-2); }
+  /* Workflow steps */
+  .steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .steps li { counter-increment: s; position: relative; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--primary-c);
+    border-radius: 8px; padding: 10px 12px 10px 46px; font-size: 14px; }
+  .steps li::before { content: counter(s); position: absolute; left: 10px; top: 10px; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--primary); color: #fff; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps li.gate { border-left-color: var(--tertiary); }
+  .steps li.human { border-left-color: var(--ok); background: var(--ok-c); }
+  .steps li.alt { border-left-color: var(--error); background: #fff8f7; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; margin: 0 0 10px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+  footer { padding: 32px 16px 48px; color: var(--ink-2); font-size: 13px; text-align: center; }
+  @media (max-width: 520px) {
+    header.top h1 { font-size: 22px; }
+    .flow .arrow { display: none; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="banner" role="note">Prototype. Synthetic data only.</div>
+
+<header class="top">
+  <div class="wrap">
+    <h1>Kestrel Document Tracker: first slice</h1>
+    <p>One shared document checklist per SME application, with client reminders that the named Relationship Manager approves before anything is sent. This page covers what the slice solves, how it is built, the controls, the document-chase agent, and how AI cost and access are governed. It reflects the build as verified on 13 Nov 2026.</p>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Jump to section">
+  <ul>
+    <li><a href="#slice">1. The slice</a></li>
+    <li><a href="#solves">2. What it solves</a></li>
+    <li><a href="#arch">3. Architecture</a></li>
+    <li><a href="#controls">4. Controls</a></li>
+    <li><a href="#rbac">5. Access control</a></li>
+    <li><a href="#agent">6. Document-chase agent</a></li>
+    <li><a href="#ai">7. Your AI questions</a></li>
+    <li><a href="#mock">8. UI mocks</a></li>
+    <li><a href="#trace">9. Trace and govern</a></li>
+    <li><a href="#verified">10. Verified</a></li>
+    <li><a href="#open">11. Open decisions</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <section aria-labelledby="sum-h">
+    <div class="summary">
+      <h2 id="sum-h" style="font-size:18px;margin:0">Summary</h2>
+      <ul>
+        <li><strong>Scope:</strong> simple applications under ₹25 lakh, one RM team, their credit analysts and the credit manager. No credit decision anywhere.</li>
+        <li><strong>Built:</strong> five screens (A–E) plus an AI Agent Workbench. One permission matrix is checked on every API call. The event log is append-only and hash-chained, RM approval is enforced on the server, and the data is 12 fictitious clients.</li>
+        <li><strong>The document-chase agent:</strong> plan, act, rewrite, critique, revise, then hand off to the named RM. Every step is traced and costed. The agent cannot send or approve anything.</li>
+        <li><strong>Models:</strong> lite models by default. Gemini <code>gemini-3.5-flash-lite</code> is the primary and Anthropic <code>claude-haiku-5-5</code> the fallback. A typical rewrite costs well under ₹0.10.</li>
+        <li><strong>Verified 13 Nov 2026:</strong> real Gemini calls worked. 71 backend tests, 8 unit tests and 4 browser tests pass.</li>
+        <li><strong>Not yet:</strong> no Anthropic key is set, so the fallback runs the simulator. The GCP deploy, Docker build and Postgres path are not verified. Production must run in Azure India.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section id="slice" aria-labelledby="h1">
+    <h2 id="h1"><span class="num">1.</span>The slice in one paragraph</h2>
+    <p>RMs lose time and deals to repeated, piecemeal document requests. This slice gives each sub-₹25L SME application one checklist, generated from a versioned rule table (product, applicant type, loan band). Each item has a tracked status (requested, received, overdue, waived), and the client gets one reminder that lists every missing document with a deadline and the RM's name. The reminder is drafted automatically and sent only after the named RM approves it. This is <strong>Opportunity 2</strong>, the highest-scoring option (<strong>ICE 7.3</strong>), and it needs no hosted AI model to start. Statement and GST extraction is slice two.</p>
+    <div class="kpis" role="list">
+      <div class="kpi" role="listitem"><span>Baseline: application to decision</span><b>18 working days</b></div>
+      <div class="kpi" role="listitem"><span>Baseline: withdrawal</span><b>22%</b></div>
+      <div class="kpi" role="listitem"><span>Loan size in scope</span><b>Under ₹25 lakh</b></div>
+      <div class="kpi" role="listitem"><span>Credit decisions</span><b>None</b></div>
+    </div>
+    <p class="note" style="margin-top:12px"><strong>Pilot measures</strong>, all read from the event log:</p>
+    <ul class="note">
+      <li>Working days to decision, against a matched comparison group</li>
+      <li>Documents requested per case</li>
+      <li>Days between requests</li>
+      <li>Withdrawal rate</li>
+      <li>Share of reminders approved without edits</li>
+      <li>Analyst time to start analysis on a complete file</li>
+    </ul>
+  </section>
+
+  <!-- 2 -->
+  <section id="solves" aria-labelledby="h2">
+    <h2 id="h2"><span class="num">2.</span>What it solves, by role</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Relationship Manager</h3><p><em>"Get one complete request to the client."</em> All missing items go out in one reminder with a deadline. The RM is the only person who can approve it.</p></div>
+      <div class="card"><h3>Credit Ops Coordinator</h3><p><em>"Prioritise the queue."</em> The queue is sorted by the oldest outstanding item, with filters for RM, stage and status. The coordinator confirms receipt of each document.</p></div>
+      <div class="card"><h3>Credit Analyst</h3><p><em>"Start on a complete file."</em> Each file is marked Complete or Blocked, with the exact blocking items. The analyst can raise a linked "Request from RM".</p></div>
+      <div class="card"><h3>Credit Manager &amp; CRO</h3><p><em>"Oversee without approving automatically."</em> Counts and an audit log only, with no client-level data. The Credit Manager also sets the AI agents' business controls.</p></div>
+      <div class="card"><h3>AI Agent Owner</h3><p><em>"Keep the agents good and cheap."</em> Tunes prompts, tone and model routing, tests changes, restores versions and watches cost. Sees no client files and no audit log.</p></div>
+      <div class="card"><h3>Corporate client</h3><p><em>"One clear list with a deadline."</em> One message listing the documents, the due date and the RM's name, approved before it is sent.</p></div>
+    </div>
+
+    <h3 style="margin-top:20px">Screens and who sees each one</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Screen</th><th scope="col">RM</th><th scope="col">Coordinator</th><th scope="col">Analyst</th><th scope="col">Credit Manager</th><th scope="col">CRO</th><th scope="col">AI Agent Owner</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">A. Application queue</th><td><span class="pill yes">Own</span></td><td><span class="pill yes">All</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td></tr>
+          <tr><th scope="row">B. Checklist &amp; timeline</th><td><span class="pill yes">Own</span></td><td><span class="pill yes">All</span></td><td><span class="pill ro">Assigned, read-only</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td></tr>
+          <tr><th scope="row">C. Reminder composer (+ document-chase agent)</th><td><span class="pill yes">Own; approve &amp; send</span></td><td><span class="pill ro">All; cannot approve</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td></tr>
+          <tr><th scope="row">D. Analyst file view</th><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill yes">Assigned</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td></tr>
+          <tr><th scope="row">E. Oversight &amp; audit (+ agent governance)</th><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill yes">Yes; business controls</span></td><td><span class="pill ro">Read-only</span></td><td><span class="pill no">No</span></td></tr>
+          <tr><th scope="row">AI Agent Workbench</th><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill no">No</span></td><td><span class="pill yes">Only screen</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:6px">The AI Agent Workbench is not in the Stitch design. It was added at the stakeholder's request and uses the same visual tokens.</p>
+  </section>
+
+  <!-- 3 -->
+  <section id="arch" aria-labelledby="h3">
+    <h2 id="h3"><span class="num">3.</span>Architecture</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Checklist service <span class="pill built">Built</span></h3><p>Generates the required items from a <strong>versioned rule table</strong> keyed on product, applicant type and loan band. Staff can waive an item, but only with a recorded reason.</p></div>
+      <div class="card"><h3>Document tracker <span class="pill built">Built</span></h3><p>Stores each item as requested, received or waived. <strong>Overdue is derived, never stored</strong>, from configurable thresholds (placeholder: due today from the due date, overdue two days after).</p></div>
+      <div class="card"><h3>Event log <span class="pill built">Built</span></h3><p>Append-only, with actor, time and reason on every event. Rows are <strong>SHA-256 hash-chained</strong>, and database triggers reject UPDATE and DELETE on both SQLite and PostgreSQL. The timeline, queue ageing and metrics are read from it.</p></div>
+      <div class="card"><h3>Reminder drafter, approval and send <span class="pill built">Built</span></h3><p>A template draft is held until the <strong>named RM</strong> approves it. Approval is the <strong>only route to the client</strong>. Mail is simulated in the prototype: nothing leaves the app.</p></div>
+      <div class="card"><h3>AI agents and the document-chase agent <span class="pill built">Built</span></h3><p>A rewriter and a critic, each with a primary and a fallback model, plus the document-chase agent that orchestrates them. Every call is costed, every step is traced, and every configuration change is versioned.</p></div>
+      <div class="card"><h3>Access control and presentation <span class="pill built">Built</span></h3><p>One <strong>permission matrix</strong> is checked on every API call, including field-level rules on agent settings. There are two login portals: staff, and AI Agent Owner. The session cookie is signed, HttpOnly, SameSite=Lax, and Secure over HTTPS.</p></div>
+    </div>
+
+    <h3 style="margin-top:20px">Data flow</h3>
+    <div class="flow" role="list" aria-label="Data flow from application to complete file">
+      <div class="step" role="listitem"><b>1. LOS (read-only)</b>Product, applicant type and loan band. Seed data stands in for the LOS.</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step" role="listitem"><b>2. Checklist</b>Rules generate the items, and a "request created" event is logged per item.</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step" role="listitem"><b>3. Draft</b>From the template, optionally reworded and checked by the document-chase agent.</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step" role="listitem"><b>4. Named RM approves</b>The server checks the approver, then sends and logs.</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step" role="listitem"><b>5. Receipt</b>Ops marks items received, standing in for the document store.</div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step" role="listitem"><b>6. Complete</b>A "file marked complete" event is logged. Nothing is written back to the LOS.</div>
+    </div>
+
+    <h3 style="margin-top:20px">Prototype stack vs production target</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Concern</th><th scope="col">Prototype (this build)</th><th scope="col">Production target</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Hosting</th><td>GCP Cloud Run behind access codes <span class="pill unverified">Deploy not run</span></td><td>Kestrel's Azure India tenancy, private network, no public endpoints</td></tr>
+          <tr><th scope="row">Identity</th><td>Staff access code with a demo role switcher; a separate AI Agent Owner access code (<code>AGENT_OWNER_ACCESS_CODE</code>, Secret Manager secret <code>kestrel-agent-owner-code</code>)</td><td>Single sign-on with role groups</td></tr>
+          <tr><th scope="row">Backend</th><td>Python 3.12, FastAPI, SQLAlchemy 2, Pydantic 2, Alembic</td><td>Same design, deployed in Azure</td></tr>
+          <tr><th scope="row">Database</th><td>SQLite locally; Cloud SQL for PostgreSQL on GCP (same code)</td><td>Database inside the tenancy</td></tr>
+          <tr><th scope="row">Frontend</th><td>Vite + TypeScript; Tailwind compiled at build time from the Stitch config</td><td>Same</td></tr>
+          <tr><th scope="row">AI providers</th><td>Gemini (<code>google-genai</code>) primary, Claude (<code>anthropic</code>) fallback, local simulator when a key is missing</td><td>Inside the Azure India tenancy with CIO/CISO approval</td></tr>
+          <tr><th scope="row">LOS, mail, document store</th><td>Seed data, simulated mailer, coordinator marks receipt by hand</td><td>Read-only LOS, existing mail system, document-store metadata</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="controls" aria-labelledby="h4">
+    <h2 id="h4"><span class="num">4.</span>Controls and one-way doors</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Named-RM approval, enforced on the server</h3><p>Only the RM named on the draft can approve it, and that RM must still own the application. The send step re-checks this. Tests confirm every other role, including the AI agents, is refused.</p></div>
+      <div class="card"><h3>Drafts never auto-send</h3><p>The background step only delivers reminders that were already approved for a later time. The agent's output is always a draft.</p></div>
+      <div class="card"><h3>Waivers need a reason</h3><p>The reason, actor and time go into the event log.</p></div>
+      <div class="card"><h3>No credit data, no credit decisions</h3><p>No amounts, scores, PAN, Aadhaar, GSTIN or account numbers exist in the schema, and no route approves or rejects credit. Tests scan every response for these terms.</p></div>
+      <div class="card"><h3>No writes to the LOS</h3><p>The completion flag lives only in this slice's own view.</p></div>
+      <div class="card"><h3>Audit trail cannot be edited</h3><p>Triggers block edits and deletes, and <code>GET /api/audit/verify</code> checks the hash chain. A sent reminder cannot be recalled, so approval is permanent.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="rbac" aria-labelledby="h5">
+    <h2 id="h5"><span class="num">5.</span>Access control: one matrix, checked on every API call</h2>
+    <p>The permission matrix lives in <code>backend/app/domain/roles.py</code> and is enforced on every API call. The UI reads the same matrix from <code>GET /api/rbac</code> and displays it in the role dialog (<em>"Show access-control matrix (RBAC)"</em>) and in the Workbench, but the server never trusts the UI. Scopes: <strong>own</strong> = the RM's portfolio, or the RM named on a draft; <strong>assigned</strong> = the analyst's files; <strong>all</strong> = everything the permission covers.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Permission</th><th scope="col">RM</th><th scope="col">Coordinator</th><th scope="col">Analyst</th><th scope="col">Credit Manager</th><th scope="col">CRO</th><th scope="col">AI Agent Owner</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>queue.view</code>: see the application queue</th><td>own</td><td>all</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>application.view</code>: open checklist &amp; timeline</th><td>own</td><td>all</td><td>assigned</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>item.receive</code>: confirm a document was received</th><td>–</td><td>all</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>item.waive</code>: waive a document (reason required)</th><td>own</td><td>all</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>reminder.draft</code>: create and edit drafts</th><td>own</td><td>all</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>reminder.approve_send</code>: approve, schedule, send</th><td>own (named RM only)</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>ai.use</code>: AI reword, critique, document-chase agent</th><td>own</td><td>all</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>analyst.view</code>: analyst file view</th><td>–</td><td>–</td><td>assigned</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>analyst.request</code>: linked request to the RM</th><td>–</td><td>–</td><td>assigned</td><td>–</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>oversight.view</code>: counts, no client data</th><td>–</td><td>–</td><td>–</td><td>all</td><td>all</td><td>–</td></tr>
+          <tr><th scope="row"><code>audit.view</code>: search and export the audit log</th><td>–</td><td>–</td><td>–</td><td>all</td><td>all</td><td>–</td></tr>
+          <tr><th scope="row"><code>agents.view_costs</code>: agent settings, cost ledger, versions</th><td>–</td><td>–</td><td>–</td><td>all</td><td>all</td><td>all</td></tr>
+          <tr><th scope="row"><code>agents.edit_business</code>: on/off, budgets, prices</th><td>–</td><td>–</td><td>–</td><td>all</td><td>–</td><td>–</td></tr>
+          <tr><th scope="row"><code>agents.edit_behaviour</code>: prompts, tone, models, fallback, timeout; restore versions</th><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>all</td></tr>
+          <tr><th scope="row"><code>agents.test</code>: test a prompt on synthetic sample text</th><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>all</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:20px">Field-level access on agent settings</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Who</th><th scope="col">May change</th><th scope="col">Why</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Credit Manager (<code>agents.edit_business</code>)</th><td><code>enabled</code>, <code>monthly_budget_usd</code>, <code>task_price_inr</code>, <code>outcome_price_inr</code></td><td>Business controls: whether the agent runs, and what it may spend and charge</td></tr>
+          <tr><th scope="row">AI Agent Owner (<code>agents.edit_behaviour</code>, <code>agents.test</code>)</th><td><code>prompt</code>, <code>tone</code>, <code>primary_provider</code>/<code>primary_model</code>, <code>fallback_provider</code>/<code>fallback_model</code>, <code>timeout_seconds</code>, <code>simulate_primary_outage</code>; restore earlier versions; run test prompts</td><td>Behaviour: how the agent writes and which models serve it</td></tr>
+          <tr><th scope="row">CRO Oversight</th><td>Nothing (read-only)</td><td>Independent oversight</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:6px">A request that changes a field outside the caller's permission is refused with HTTP 403. Restoring a version rolls back only the fields the caller owns, and the restore is itself a new version.</p>
+
+    <h3 style="margin-top:20px">AI Agent Owner: a separate login</h3>
+    <ul>
+      <li>The login page has an <strong>"AI Agent Owner"</strong> tab with its own access code (<code>AGENT_OWNER_ACCESS_CODE</code>, stored as Secret Manager secret <code>kestrel-agent-owner-code</code>).</li>
+      <li>The session is <strong>locked to that role</strong>: the owner cannot switch roles, and staff cannot switch into it.</li>
+      <li>The owner sees <strong>only the AI Agent Workbench</strong>: no client files and no audit log.</li>
+    </ul>
+  </section>
+
+  <!-- 6 -->
+  <section id="agent" aria-labelledby="h6">
+    <h2 id="h6"><span class="num">6.</span>The document-chase agent: the slice's agentic workflow</h2>
+    <p>Started from the composer ("<strong>Run document-chase agent</strong>", <code>POST /api/applications/{id}/chase-agent</code>). Fixed code controls the order of steps, and the two model calls happen inside it. Every step is recorded in an <strong>AgentTrace</strong> with its cost. The trace can be opened with "<strong>View trace</strong>" in the composer, and under "<strong>Recent agent traces</strong>" in the Workbench.</p>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:#1d4ed8"></i>Tool or processing</span>
+      <span><i style="background:#7f2500"></i>LLM call (guarded)</span>
+      <span><i style="background:#ba1a1a"></i>Conditional</span>
+      <span><i style="background:#065f46"></i>Human decision</span>
+    </div>
+    <ol class="steps">
+      <li><strong>Plan (tool: tracker):</strong> read the outstanding documents from the system of record. If nothing is outstanding, the agent stops.</li>
+      <li><strong>Act (tool: template drafter):</strong> build the draft from the approved template, with the items, due date, round and named RM.</li>
+      <li class="gate"><strong>Rewriter (LLM):</strong> reword the draft in the chosen tone, through every guard step listed below. If AI wording is unavailable, the template text is kept.</li>
+      <li class="gate"><strong>Critic (LLM):</strong> score the draft from 1 to 5, give a verdict (ok or revise) and list issues. The critic never edits the text.</li>
+      <li class="alt"><strong>Revise, once:</strong> only if the critic says "revise". The rewriter runs again with the critic's issues added. Otherwise this step is recorded as "not needed".</li>
+      <li class="human"><strong>Hand-off:</strong> the draft revision waits for the named RM. The agent <strong>cannot send or approve</strong>, because the server accepts approval only from the RM named on the draft.</li>
+    </ol>
+
+    <h3 style="margin-top:20px">Trace steps recorded for every LLM task</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">#</th><th scope="col">Step</th><th scope="col">What the trace shows</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><th scope="row">Feature flag</th><td><code>FEATURE_AI_DRAFTING</code> is on; otherwise the task stops</td></tr>
+          <tr><td>2</td><th scope="row">Agent enabled</th><td>The config version in force (e.g. "config v3"); stops if the Credit Manager has switched the agent off</td></tr>
+          <tr><td>3</td><th scope="row">Budget</th><td>"spent $x of $y this month"; stops when the budget is used up</td></tr>
+          <tr><td>4</td><th scope="row">Rate limit</th><td>Under the per-user hourly limit (default 30 tasks)</td></tr>
+          <tr><td>5</td><th scope="row">Data minimisation</th><td>Which placeholders replaced client and contact names before the text left the server; keys stay server-side</td></tr>
+          <tr><td>6</td><th scope="row">Prompt assembled</th><td>Prompt version (or "unsaved prompt under test") and tone; the <strong>exact system and user prompt</strong> can be viewed; fixed guardrails appended</td></tr>
+          <tr><td>7</td><th scope="row">Primary call</th><td>Provider and model, input and output tokens, latency, USD and INR cost, a "simulated" flag, and the raw output; or the error and "trying fallback"; or "circuit breaker open"</td></tr>
+          <tr><td>8</td><th scope="row">Output validation</th><td>Pass, or rejected with the <strong>exact missing detail</strong> (e.g. <code>'Vikram Desai'</code>) or <strong>forbidden phrase</strong> (e.g. <code>'₹'</code>)</td></tr>
+          <tr><td>9</td><th scope="row">Fallback call</th><td>The same as step 7, for the second provider; then validated again</td></tr>
+          <tr><td>10</td><th scope="row">Restore names</th><td>Placeholders put back on the server</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:6px"><strong>Fixed guardrails</strong> appended on the server, which no UI edit can remove: plain text only; keep every numbered document line, the application ID, the due date, the RM's full name and every placeholder exactly as written; do not add amounts, interest rates, links, phone numbers, promises, or any statement about credit approval, rejection or eligibility. Validation also accepts the due date written in another common format (e.g. "20 November 2026").</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="ai" aria-labelledby="h7">
+    <h2 id="h7"><span class="num">7.</span>Your AI questions, answered</h2>
+    <div class="grid g2">
+      <div class="qa">
+        <div class="q">What is the cost of every call, in money, for the LLM to perform a single task?</div>
+        <ul>
+          <li>Every model call (each attempt) is an <strong>AgentRun</strong> row: provider, model, input and output tokens, <strong>USD cost</strong> from the price table, latency, status, config version, and a simulated flag.</li>
+          <li>A task's cost is the sum of its attempts. A document-chase run's cost is the sum of all its tasks, shown on the trace in USD and INR.</li>
+          <li>The "<strong>Cost incurred until now</strong>" table shows all-time and this-month totals, split by agent and by model, with <strong>real</strong> spend shown separately from <strong>simulated</strong>.</li>
+        </ul>
+      </div>
+      <div class="qa">
+        <div class="q">Can I change the agent, and how quickly?</div>
+        <ul>
+          <li>Yes. The <strong>AI Agent Owner</strong> changes the prompt, tone, models, fallback and timeout. They can test an unsaved prompt first, then save it with a reason as a new version. Restoring any earlier version takes one click.</li>
+          <li>The <strong>Credit Manager</strong> switches agents on or off and sets budgets and prices.</li>
+          <li><strong>A change applies to the next call</strong>, with no deploy or restart. The panel shows the change time, the first call made on the new version, and the seconds between them. In the seeded demo, the first call came 42 s after the switch.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">Worked example: one rewrite of about 600 input + 250 output tokens</h3>
+    <p class="note">Cost = input ÷ 1,000,000 × input price + output ÷ 1,000,000 × output price. Prices are USD per 1M tokens; INR uses the placeholder rate of ₹84 per US$1.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Model</th><th scope="col" class="num">In $/1M</th><th scope="col" class="num">Out $/1M</th><th scope="col" class="num">Input</th><th scope="col" class="num">Output</th><th scope="col" class="num">Task USD</th><th scope="col" class="num">Task INR</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Gemini <code>gemini-3.5-flash-lite</code> (default primary)</th><td class="num">0.30</td><td class="num">2.50</td><td class="num">$0.000180</td><td class="num">$0.000625</td><td class="num">$0.000805</td><td class="num">₹0.0676</td></tr>
+          <tr><th scope="row">Gemini <code>gemini-3.1-flash-lite</code> (in catalogue; seeded demo switch)</th><td class="num">0.25</td><td class="num">1.50</td><td class="num">$0.000150</td><td class="num">$0.000375</td><td class="num">$0.000525</td><td class="num">₹0.0441</td></tr>
+          <tr><th scope="row">Anthropic <code>claude-haiku-5-5</code> (default fallback)</th><td class="num">0.10</td><td class="num">0.50</td><td class="num">$0.000060</td><td class="num">$0.000125</td><td class="num">$0.000185</td><td class="num">₹0.0155</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:8px">If the primary fails before returning usage, it costs $0 and the task costs only the fallback's amount: $0.000185 (₹0.0155) on Haiku 5.5. A primary output that is rejected after generation is still billed and counted. One <strong>measured</strong> real call, on <code>gemini-3.1-flash-lite</code> with 218 input + 96 output tokens, cost <strong>$0.000199</strong> (≈ ₹0.0167). Other catalogue models, such as <code>gemini-3.8-flash</code>, <code>claude-sonnet-5-5</code> and <code>claude-opus-5-5</code>, are available but cost more. Prices are as of 13 Nov 2026 and are placeholders until Finance confirms them.</p>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div class="qa">
+        <div class="q">Security</div>
+        <ul>
+          <li>Model calls happen only on the backend. API keys come from the environment (Secret Manager on GCP), are never sent to the browser, and are never logged.</li>
+          <li>Client and contact names are swapped for <code>[[CLIENT]]</code> and <code>[[CONTACT]]</code> before any call, and restored afterwards.</li>
+          <li>Fixed guardrails are appended on the server; output validation names exactly what was dropped or added; output stays a <strong>draft</strong> needing the named RM's approval.</li>
+          <li>Field-level access control on agent settings, and a separate, locked login for the AI Agent Owner.</li>
+        </ul>
+      </div>
+      <div class="qa">
+        <div class="q">Primary and fallback models, different providers</div>
+        <ul>
+          <li>Default: <strong>Gemini</strong> <code>gemini-3.5-flash-lite</code> as primary and <strong>Anthropic</strong> <code>claude-haiku-5-5</code> as fallback, both lite models.</li>
+          <li>The fallback runs automatically on an error, timeout, rate limit, refusal, empty answer, or <strong>rejected output</strong>.</li>
+          <li>Circuit breaker: after 3 consecutive failures on a model within 10 minutes, that model is skipped. Each call has a timeout (default 20 s).</li>
+          <li>A provider with no key falls back to the simulator only when <code>AI_DEMO_SIMULATE</code> is on, and every such result is labelled "simulated".</li>
+        </ul>
+      </div>
+      <div class="qa">
+        <div class="q">Pricing: outcome-based and task-based</div>
+        <ul>
+          <li><strong>Token cost</strong>: the actual provider spend.</li>
+          <li><strong>Task-based price</strong>: an internal chargeback per successful task. Placeholders are ₹2 per rewrite and ₹1 per critique.</li>
+          <li><strong>Outcome-based price</strong>: charged only when the AI-worded reminder is <em>approved and sent</em> by the RM. The placeholder is ₹5.</li>
+          <li>All three are configurable by the Credit Manager and totalled side by side.</li>
+        </ul>
+      </div>
+      <div class="qa">
+        <div class="q">Governance: trace each action and fix a single agent</div>
+        <ul>
+          <li>The cost ledger has one row per task, with expandable attempts. Every task and every document-chase run has a full trace.</li>
+          <li>Each agent has its own settings. Every change is an <strong>append-only config version</strong> recording who, when, what and why, and every run records the version it used.</li>
+          <li>Restoring a version takes one click and is itself a new version. The monthly budget cap blocks the agent when reached, and a per-user hourly rate limit applies.</li>
+        </ul>
+      </div>
+      <div class="qa">
+        <div class="q">Backend agent API calls</div>
+        <ul>
+          <li><code>POST /api/applications/{id}/chase-agent</code>: run the document-chase agent</li>
+          <li><code>POST /api/reminders/{id}/ai-reword</code> and <code>/critique</code>: single tasks</li>
+          <li><code>GET /api/agents</code>, <code>PATCH /api/agents/{key}</code> (field-level access), <code>POST /api/agents/{key}/restore</code>, <code>POST /api/agents/{key}/test</code></li>
+          <li><code>GET /api/agent-runs</code> for the ledger, <code>GET /api/agent-traces</code> and <code>/{task_id}</code> for traces, <code>GET /api/rbac</code> for the matrix</li>
+        </ul>
+      </div>
+      <div class="qa">
+        <div class="q">Scalability and stability</div>
+        <ul>
+          <li>Stateless on Cloud Run (0 to 2 instances, concurrency 80). Circuit state, budgets and rate limits are read from the database, so they hold across instances.</li>
+          <li>Each call is bounded by its timeout, the fallback and the circuit breaker; cost is bounded by budget caps and rate limits.</li>
+          <li><span class="pill planned">For production</span> Azure India hosting, private endpoints, a job queue for scheduled sends, and a load test.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="mock" aria-labelledby="h8">
+    <h2 id="h8"><span class="num">8.</span>The UI for changing and testing agents</h2>
+    <p>Two static mocks follow. The first is the agent governance panel as each role sees it. The second is the Workbench "Run an input" panel with its trace. Numbers are illustrative but are calculated from the real price table.</p>
+
+    <span class="mocklabel">Mock of the prototype screen: agent governance panel</span>
+    <div class="mock" role="img" aria-label="Static mock of the agent governance panel. Details are in the surrounding text.">
+      <div class="agent">
+        <div class="agent-head">
+          <h3>Reminder rewriter <span class="pill built">Enabled</span> <span class="pill ro">v3</span></h3>
+          <span class="toggle"><i aria-hidden="true"></i>Agent on <span class="pill ro">Credit Manager</span></span>
+        </div>
+        <p class="note" style="margin:0 0 8px"><strong>Behaviour</strong>: editable by the AI Agent Owner, greyed out for everyone else</p>
+        <div class="fields">
+          <div class="field"><label>Primary provider</label><div class="ctl">Gemini (Google)</div></div>
+          <div class="field"><label>Primary model</label><div class="ctl">gemini-3.1-flash-lite · $0.25 / $1.50</div></div>
+          <div class="field"><label>Fallback provider</label><div class="ctl">Anthropic (Claude)</div></div>
+          <div class="field"><label>Fallback model</label><div class="ctl">claude-haiku-5-5 · $0.10 / $0.50</div></div>
+          <div class="field"><label>Default tone</label><div class="ctl">Formal</div></div>
+          <div class="field"><label>Timeout (s)</label><div class="ctl input">20</div></div>
+          <div class="field"><label>Outage drill</label><div class="ctl input"><span class="toggle off"><i aria-hidden="true"></i>Simulate primary outage: off</span></div></div>
+        </div>
+        <div class="field" style="margin-top:10px"><label>Prompt (fixed guardrails are appended on the server)</label>
+          <div class="area">You rewrite document reminders from an Indian SME lender to its small-business clients so they are clear, courteous and short.<br>Tone: {tone}.</div></div>
+        <p class="note" style="margin:12px 0 8px"><strong>Business controls</strong>: editable by the Credit Manager, greyed out for everyone else</p>
+        <div class="fields">
+          <div class="field"><label>Task price (₹ per success)</label><div class="ctl input">2.00</div></div>
+          <div class="field"><label>Outcome price (₹ when sent)</label><div class="ctl input">5.00</div></div>
+          <div class="field"><label>Monthly budget (USD)</label><div class="ctl input">25.00 · spent $0.000199</div></div>
+        </div>
+        <div class="field" style="margin-top:10px"><label>Reason for change (required)</label><div class="area" style="min-height:36px">Cost review: move primary to gemini-3.1-flash-lite</div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span class="btn primary">Save as new version</span><span class="btn ghost">Discard</span></div>
+        <div class="lastchange"><strong>Last change:</strong> v3 by the AI Agent Owner ("Cost review: move primary to gemini-3.1-flash-lite"). <strong>Live on the first call 42 s later</strong>, with no deploy.</div>
+        <ul class="versions" aria-label="Version history">
+          <li><strong>v3</strong> · primary_model · "Cost review…" · <em>current</em></li>
+          <li><strong>v2</strong> · tone · "Friendlier default for first reminders" · <span class="btn ghost" style="height:22px;font-size:11px;padding:0 8px">Restore</span></li>
+          <li><strong>v1</strong> · created · "Initial configuration" · <span class="btn ghost" style="height:22px;font-size:11px;padding:0 8px">Restore</span></li>
+        </ul>
+        <p class="note" style="margin:6px 0 0">Restore is shown only to the AI Agent Owner. It rolls back the behaviour fields and records a new version.</p>
+      </div>
+
+      <h3 style="margin:16px 0 8px">Cost incurred until now</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th scope="col">Scope</th><th scope="col" class="num">Tasks (ok)</th><th scope="col" class="num">Calls</th><th scope="col" class="num">Tokens</th><th scope="col" class="num">LLM cost (all)</th><th scope="col" class="num">Real spend</th><th scope="col" class="num">Simulated calls</th><th scope="col" class="num">Task-based</th><th scope="col" class="num">Outcome-based</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">All time</th><td class="num">9 (8)</td><td class="num">11</td><td class="num">8,140</td><td class="num">$0.001124 · ₹0.094</td><td class="num">$0.000398</td><td class="num">7</td><td class="num">₹13.00</td><td class="num">₹5.00</td></tr>
+            <tr><th scope="row">This month</th><td class="num">9 (8)</td><td class="num">11</td><td class="num">8,140</td><td class="num">$0.001124 · ₹0.094</td><td class="num">$0.000398</td><td class="num">7</td><td class="num">₹13.00</td><td class="num">₹5.00</td></tr>
+            <tr><th scope="row">Rewriter</th><td class="num">5 (5)</td><td class="num">6</td><td class="num">5,010</td><td class="num">$0.000802</td><td class="num">$0.000199</td><td class="num">4</td><td class="num">₹10.00</td><td class="num">₹5.00</td></tr>
+            <tr><th scope="row">Critic</th><td class="num">4 (3)</td><td class="num">5</td><td class="num">3,130</td><td class="num">$0.000322</td><td class="num">$0.000199</td><td class="num">3</td><td class="num">₹3.00</td><td class="num">₹0.00</td></tr>
+            <tr><th scope="row">gemini/gemini-3.1-flash-lite</th><td class="num">3</td><td class="num">4</td><td class="num">1,730</td><td class="num">$0.000398</td><td class="num">$0.000398</td><td class="num">0</td><td class="num">n/a</td><td class="num">n/a</td></tr>
+            <tr><th scope="row">simulated/sim-standard</th><td class="num">6</td><td class="num">7</td><td class="num">6,410</td><td class="num">$0.000000</td><td class="num">$0.000000</td><td class="num">7</td><td class="num">n/a</td><td class="num">n/a</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin:6px 0 0">Illustrative rows. In the app, the "real spend" and "simulated" columns keep paid calls separate from demo calls.</p>
+    </div>
+
+    <span class="mocklabel" style="margin-top:20px">Mock of the prototype screen: Workbench "Run an input" with trace</span>
+    <div class="mock" role="img" aria-label="Static mock of the Workbench run panel and trace. Details are in the surrounding text.">
+      <div class="fields">
+        <div class="field"><label>Agent</label><div class="ctl">Reminder rewriter</div></div>
+        <div class="field"><label>Tone</label><div class="ctl">Friendly</div></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Prompt under test (unsaved)</label><div class="area">You rewrite document reminders… Keep it warm and under 120 words. Tone: {tone}.</div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span class="btn primary">Run on synthetic sample</span><span class="btn ghost">Reset to live prompt</span><span class="btn ghost">Save prompt + tone as new version</span></div>
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead><tr><th scope="col">Trace step</th><th scope="col">Result</th><th scope="col">Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Feature flag</td><td><span class="pill yes">Pass</span></td><td>FEATURE_AI_DRAFTING is on</td></tr>
+            <tr><td>Agent enabled</td><td><span class="pill yes">Pass</span></td><td>config v3</td></tr>
+            <tr><td>Budget</td><td><span class="pill yes">Pass</span></td><td>spent $0.000199 of $25.00 this month</td></tr>
+            <tr><td>Rate limit</td><td><span class="pill yes">Pass</span></td><td>under 30 tasks per user per hour</td></tr>
+            <tr><td>Data minimisation</td><td><span class="pill yes">Pass</span></td><td>sample already uses [[CLIENT]] / [[CONTACT]]; keys stay server-side</td></tr>
+            <tr><td>Prompt assembled</td><td><span class="pill ro">Info</span></td><td>unsaved prompt under test, tone friendly; guardrails appended · <em>View system + user prompt</em></td></tr>
+            <tr><td>Primary call gemini/gemini-3.1-flash-lite</td><td><span class="pill yes">Pass</span></td><td>218 in + 96 out tokens, 1,140 ms, $0.000199 (INR 0.0167)</td></tr>
+            <tr><td>Output validation</td><td><span class="pill yes">Pass</span></td><td>all 5 required details kept; no amounts, links, phone numbers or credit language</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin:6px 0 0">Token and cost figures in this mock match the measured real call; the latency figure is illustrative. A rejected output shows, for example, "Output validation · Fail · rejected: dropped required detail(s): 'Sample RM'; trying fallback".</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="trace" aria-labelledby="h9">
+    <h2 id="h9"><span class="num">9.</span>How we trace, evaluate and govern</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Capability</th><th scope="col">What it gives you</th><th scope="col">Status</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">AgentTrace for every task and document-chase run</th><td>Every guard step, the exact prompts, outputs, validation results and cost, viewable in the UI</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">AgentRun ledger, one row per attempt</th><td>Provider, model, tokens, USD cost, latency, status, the error, <code>config_version</code>, and a simulated flag</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Cost incurred until now</th><td>All-time and this month, by agent and by model, real vs simulated, plus task-based and outcome-based charges</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Append-only config versions with one-click restore</th><td>Who, when, what and why, plus time from a change to the first call that used it</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Permission matrix shown in the UI</th><td>The same matrix the server enforces, visible to every role</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Hash-chained event log</th><td>Reminder drafted (including AI revisions), approved and sent; detectable if tampered with</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Critique scores, approval without edits, fallback share, rejection counts</th><td>Quality and stability signals per agent</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Prompt testing on synthetic sample text</th><td>Try an unsaved prompt and tone; output, trace and cost are shown before saving</td><td><span class="pill built">Built</span></td></tr>
+          <tr><th scope="row">Offline eval set and regression gate</th><td>Rubric scored by the critic plus a human sample, run before any prompt or model change is promoted</td><td><span class="pill planned">Planned (pilot)</span></td></tr>
+          <tr><th scope="row">A/B testing by config version</th><td>Compare quality and cost per task</td><td><span class="pill planned">Planned (pilot)</span></td></tr>
+          <tr><th scope="row">Drift alerts; export to Azure Monitor / OpenTelemetry</th><td>Alerts on rejection rate, fallback rate and cost per task</td><td><span class="pill planned">Planned (production)</span></td></tr>
+          <tr><th scope="row">Quarterly model review; CIO/CISO approval gate</th><td>Price, quality and deprecation checks; mandatory before AI is used on real data</td><td><span class="pill planned">Planned (mandatory)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="verified" aria-labelledby="h10">
+    <h2 id="h10"><span class="num">10.</span>What was verified live (13 Nov 2026)</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Real Gemini call</th><td><span class="pill yes">Pass</span> <code>gemini-3.1-flash-lite</code>: 218 input + 96 output tokens, <strong>$0.000199</strong>; passed output validation</td></tr>
+          <tr><th scope="row">Guardrail on a real output</th><td><span class="pill yes">Pass</span> A real Gemini output that dropped the RM's name was <strong>rejected</strong>, and the task fell back. The fallback ran the simulator because no Anthropic key was set, and it was labelled "simulated".</td></tr>
+          <tr><th scope="row">Real critic call</th><td><span class="pill yes">Pass</span> Returned a score of 5/5</td></tr>
+          <tr><th scope="row">Backend tests (pytest)</th><td><span class="pill yes">71 passed</span></td></tr>
+          <tr><th scope="row">Frontend unit tests (Vitest)</th><td><span class="pill yes">8 passed</span></td></tr>
+          <tr><th scope="row">Browser tests (Playwright)</th><td><span class="pill yes">4 passed</span>, run against the live local server with real Gemini calls</td></tr>
+          <tr><th scope="row">Anthropic fallback with a real key</th><td><span class="pill unverified">Not yet</span> No Anthropic key is set, so the fallback runs the simulator until one is added</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="open" aria-labelledby="h11">
+    <h2 id="h11"><span class="num">11.</span>Open decisions and caveats</h2>
+    <div class="warn" role="note" style="margin-bottom:12px">
+      <strong>AI wording conflicts with the architecture document.</strong> The document puts model-assisted wording out of the first release and requires that, if added, it runs inside Kestrel's Azure India tenancy with written CIO/CISO approval, with no customer data going to a public AI service. It was built here at the stakeholder's explicit request. It is off by default, uses synthetic data only, and must not be enabled on real data until that approval exists.
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Item</th><th scope="col">Status</th><th scope="col">Owner / next step</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Anthropic fallback</th><td><span class="pill unverified">Simulated until a key is added</span></td><td>Add <code>ANTHROPIC_API_KEY</code> (Secret Manager in GCP) and rerun the fallback drill</td></tr>
+          <tr><th scope="row">Overdue thresholds (due on the due date, overdue 2 calendar days after)</th><td><span class="pill planned">Assumption</span></td><td>Operations to confirm</td></tr>
+          <tr><th scope="row">Document list per product, applicant type and loan band</th><td><span class="pill planned">Placeholder</span></td><td>Credit to agree</td></tr>
+          <tr><th scope="row">Model prices, INR rate (84), task and outcome prices, budgets</th><td><span class="pill planned">Placeholder</span></td><td>Finance to confirm; the Credit Manager sets prices in the app</td></tr>
+          <tr><th scope="row">AI Agent Owner role</th><td><span class="pill planned">Prototype addition</span></td><td>Name a real owner (e.g. Operations or Data); map to an SSO group</td></tr>
+          <tr><th scope="row">GCP deployment</th><td><span class="pill unverified">Not run</span></td><td>Needs the project ID, region and repository</td></tr>
+          <tr><th scope="row">Docker image</th><td><span class="pill unverified">Not built locally</span></td><td>First build in CI</td></tr>
+          <tr><th scope="row">PostgreSQL path</th><td><span class="pill unverified">Not verified locally</span></td><td>Verify in CI with a Postgres service</td></tr>
+          <tr><th scope="row">LOS, document store, mail, SSO</th><td><span class="pill planned">Stand-ins</span></td><td>Platform owners to confirm the interfaces</td></tr>
+          <tr><th scope="row">Event-log retention; owner of the template wording</th><td><span class="pill planned">Open</span></td><td>Compliance; Operations or Compliance</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:16px"><strong>This prototype uses synthetic data only.</strong> A production version must run in Kestrel's Azure India tenancy, not on GCP.</p>
+  </section>
+</main>
+
+<footer>Kestrel Document Tracker, first slice: prototype overview. Updated 13 Nov 2026.</footer>
+</body>
+</html>

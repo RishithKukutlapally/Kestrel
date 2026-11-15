@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Montserrat:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+  @layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #090e19; }
+  ::-webkit-scrollbar-thumb { background: #232D42; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #343946; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-tertiary-fixed-variant": "#004e60",
+          "surface-dim": "#0e131e",
+          "inverse-surface": "#dee2f2",
+          "primary-container": "#02f576",
+          "background": "#0e131e",
+          "outline-variant": "#3b4b3c",
+          "surface-border": "#232D42",
+          "on-secondary-container": "#c5baff",
+          "primary-fixed": "#65ff90",
+          "on-surface": "#dee2f2",
+          "surface-container-highest": "#303541",
+          "tertiary-fixed-dim": "#47d6ff",
+          "text-muted": "#A1A6B4",
+          "secondary-container": "#4f00f1",
+          "error-container": "#93000a",
+          "surface-container": "#1b1f2b",
+          "on-secondary": "#30009b",
+          "tertiary-fixed": "#b6ebff",
+          "surface-charcoal": "#141B2D",
+          "outline": "#849584",
+          "tertiary-container": "#8be1ff",
+          "error": "#ffb4ab",
+          "risk-crimson": "#FF3366",
+          "surface-tint": "#00e46d",
+          "on-primary-container": "#006b2f",
+          "surface-container-lowest": "#090e19",
+          "surface": "#0e131e",
+          "secondary-fixed": "#e6deff",
+          "secondary-fixed-dim": "#c9beff",
+          "on-secondary-fixed": "#1b0062",
+          "on-tertiary": "#003543",
+          "secondary": "#c9beff",
+          "on-secondary-fixed-variant": "#4600d8",
+          "risk-amber": "#FFB800",
+          "primary": "#c9ffcd",
+          "tertiary": "#dff5ff",
+          "on-surface-variant": "#bacbb8",
+          "surface-bright": "#343946",
+          "on-primary": "#003916",
+          "surface-container-high": "#252a36",
+          "surface-variant": "#303541",
+          "on-primary-fixed-variant": "#005323",
+          "primary-fixed-dim": "#00e46d",
+          "on-background": "#dee2f2",
+          "surface-container-low": "#171b27",
+          "on-tertiary-container": "#00657c",
+          "on-tertiary-fixed": "#001f28",
+          "inverse-on-surface": "#2b303c",
+          "inverse-primary": "#006d31",
+          "on-primary-fixed": "#00210a",
+          "on-error-container": "#ffdad6",
+          "on-error": "#690005"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter": "1.5rem",
+          "margin": "2rem",
+          "space-md": "1rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [
+            "Montserrat"
+          ],
+          "body-sm": [
+            "Inter"
+          ],
+          "body-lg": [
+            "Inter"
+          ],
+          "label-code": [
+            "JetBrains Mono"
+          ],
+          "display-hero": [
+            "Montserrat"
+          ],
+          "label-audit": [
+            "JetBrains Mono"
+          ],
+          "headline-sm": [
+            "Montserrat"
+          ],
+          "headline-lg": [
+            "Montserrat"
+          ],
+          "headline-lg-mobile": [
+            "Montserrat"
+          ],
+          "body-md": [
+            "Inter"
+          ],
+          "headline-md": [
+            "Montserrat"
+          ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "fontWeight": "700"
+            }
+          ],
+          "body-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "400"
+            }
+          ],
+          "body-lg": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "label-code": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "display-hero": [
+            "48px",
+            {
+              "lineHeight": "56px",
+              "fontWeight": "800"
+            }
+          ],
+          "label-audit": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-sm": [
+            "18px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-lg-mobile": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "fontWeight": "700"
+            }
+          ],
+          "body-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "22px",
+            {
+              "lineHeight": "28px",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      },
+    },
+  }
+</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-surface-dim"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/95 backdrop-blur-md border-b border-surface-border text-on-surface"><div class="h-13 w-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Kestrel Logo" class="h-8 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(2,245,118,0.25)]" src="https://lh3.googleusercontent.com/aida/ALJJyrA3sLvRoIaxPcJQ-pjAuumyfrHw_R9aWUp_UrLhm1i_ItYGEfnMcqtuyb4kqgkzjLslXLQkAEYnWt4C0MDE0DKsnLMadpS_DJdhWZWScwymFjfeYOGdsi6LWlahPL2s3Hjn6mkatolWcd_h59KRMhx7-PtYpzz6DGmnk26jQrTiMDvAIVmC_yTKStQ1iSWJI6BAr-cmy4bfYB6_LYwcx9rkpu-caQ9v5m7RSMBO_kuK"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">Kestrel<span class="text-primary-container ml-0.5">.</span></span><span class="px-space-sm py-0.5 rounded border border-surface-border bg-surface-container-low text-text-muted font-label-code text-[11px] tracking-wide">Document Tracker · SME Lending (≤₹25L)</span></div><nav class="hidden xl:flex items-center gap-1 ml-space-md"><a class="px-space-md py-1.5 rounded-lg text-text-muted hover:text-on-surface hover:bg-surface-container transition-all font-body-sm text-[13px] font-medium" data-path="application-queue" href="#/queue">Application Queue</a><a class="px-space-md py-1.5 rounded-lg text-text-muted hover:text-on-surface hover:bg-surface-container transition-all font-body-sm text-[13px] font-medium" data-path="checklist-and-timeline" href="#/checklist">Checklist &amp; Timeline</a><a class="px-space-md py-1.5 rounded-lg text-text-muted hover:text-on-surface hover:bg-surface-container transition-all font-body-sm text-[13px] font-medium" data-path="reminder-composer" href="#/composer">Reminder Composer</a><a class="px-space-md py-1.5 rounded-lg text-text-muted hover:text-on-surface hover:bg-surface-container transition-all font-body-sm text-[13px] font-medium" data-path="analyst-file-view" href="#/analyst">Analyst File View</a><a class="px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container border border-primary-container/30 font-semibold font-body-sm text-[13px] shadow-[0_0_12px_rgba(2,245,118,0.15)]" data-path="oversight-and-audit" href="#/oversight">Oversight &amp; Audit</a></nav></div><div class="flex items-center gap-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-text-muted text-[17px]">search</span><input class="h-8 pl-8 pr-3 rounded-lg bg-surface-container-low border border-surface-border text-on-surface placeholder:text-text-muted font-body-sm text-[12px] focus:outline-none focus:border-primary-container/70 focus:ring-1 focus:ring-primary-container/40 w-64 transition-all" placeholder="Search client, ID (KF-2026-XXXX)..." type="text"/></div><div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-border text-text-muted font-body-sm text-[12px]"><span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim">location_on</span><span>Mumbai - Andheri West Hub</span></div><div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-border text-text-muted font-body-sm text-[12px]"><span class="w-1.5 h-1.5 rounded-full bg-primary-container shadow-[0_0_6px_#02f576]"></span><span class="text-primary-container font-medium">Live sync</span><span class="text-surface-border">·</span><span>Zero auto-sends</span></div><div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-border/70"><div class="hidden sm:flex flex-col text-right"><span class="font-headline-sm text-[13px] text-on-surface font-semibold leading-tight">Arjun Nair</span><span class="font-label-code text-[10px] text-primary-container uppercase tracking-wider">RM Authority</span></div><div class="w-8 h-8 rounded-lg bg-surface-container-high border border-primary-container/40 flex items-center justify-center text-primary-container shadow-[0_0_8px_rgba(2,245,118,0.2)]"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></div><div class="h-7 w-full bg-surface-container-low/90 border-b border-surface-border/60 px-gutter flex items-center justify-between text-text-muted font-body-sm text-[12px]"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-container text-[15px]">verified_user</span><span class="font-semibold text-on-surface">RM Protocol:</span><span>Draft reminders require human RM review and authorization before dispatch. No reminders or credit decisions are sent autonomously.</span></div><button class="flex items-center gap-1 text-text-muted hover:text-on-surface text-[11px] transition-colors"><span class="material-symbols-outlined text-[13px]">close</span><span>Dismiss</span></button></div></header><aside class="fixed left-0 top-20 bottom-0 w-14 bg-surface-container-lowest border-r border-surface-border z-40 flex flex-col justify-between items-center py-space-sm"><nav class="flex flex-col items-center gap-2 w-full px-space-xs"><a class="w-10 h-10 flex items-center justify-center rounded-lg text-text-muted hover:bg-surface-container hover:text-on-surface transition-all" data-path="application-queue" href="#/queue" title="Application Queue"><span class="material-symbols-outlined text-[20px]">table_rows</span></a><a class="w-10 h-10 flex items-center justify-center rounded-lg text-text-muted hover:bg-surface-container hover:text-on-surface transition-all" data-path="checklist-and-timeline" href="#/checklist" title="Checklist &amp; Timeline"><span class="material-symbols-outlined text-[20px]">checklist</span></a><a class="w-10 h-10 flex items-center justify-center rounded-lg text-text-muted hover:bg-surface-container hover:text-on-surface transition-all" data-path="reminder-composer" href="#/composer" title="Reminder Composer"><span class="material-symbols-outlined text-[20px]">outgoing_mail</span></a><a class="w-10 h-10 flex items-center justify-center rounded-lg text-text-muted hover:bg-surface-container hover:text-on-surface transition-all" data-path="analyst-file-view" href="#/analyst" title="Analyst File View"><span class="material-symbols-outlined text-[20px]">fact_check</span></a><a class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-primary-container border border-primary-container/40 shadow-[0_0_10px_rgba(2,245,118,0.2)] transition-all" data-path="oversight-and-audit" href="#/oversight" title="Oversight &amp; Audit"><span class="material-symbols-outlined text-[20px]">verified_user</span></a></nav><div class="flex flex-col items-center gap-2 w-full px-space-xs pb-space-xs"><button class="w-10 h-10 flex items-center justify-center rounded-lg text-text-muted hover:bg-surface-container hover:text-on-surface transition-colors" title="System Help &amp; SOP"><span class="material-symbols-outlined text-[18px]">help</span></button><button class="w-10 h-10 flex items-center justify-center rounded-lg text-text-muted hover:bg-surface-container hover:text-on-surface transition-colors" title="Branch Operational Shift"><span class="material-symbols-outlined text-[18px]">swap_horiz</span></button></div></aside><div class="pl-14"><main class="relative pt-20 w-full min-h-screen bg-surface px-gutter py-space-md"><div class="flex flex-col w-full pb-space-xl">
+<!-- Top Executive Operational Header -->
+<section class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs text-text-muted font-label-code text-[11px] uppercase tracking-wider">
+<span class="material-symbols-outlined text-[15px] text-primary-container">shield_with_heart</span>
+<span class="text-primary-container font-semibold">Executive Audit Suite</span>
+<span class="text-surface-border">/</span>
+<span class="text-secondary-fixed-dim">Credit Risk &amp; Ops Oversight</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-extrabold flex items-center gap-3">
+  Document Tracking Oversight &amp; Audit
+  <span class="text-[11px] font-label-code px-2 py-0.5 rounded-full bg-primary-container/10 border border-primary-container/30 text-primary-container font-semibold uppercase tracking-wider">RBI Sub-₹25L Engine</span>
+</h1>
+<p class="font-body-md text-body-sm text-text-muted">SME Sub-₹25L Lending Pipeline · RBI Verification Ledger Compliance · Strict Human-in-the-Loop Protocol</p>
+</div>
+<!-- Quick Ops Actions -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-2 px-space-md py-2 bg-surface-charcoal border border-surface-border rounded-lg text-on-surface font-label-code text-label-code shadow-inner">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#02f576]"></span>
+<span class="text-on-surface font-medium">Ledger Sync: <span class="text-primary-container">Realtime</span></span>
+</div>
+<button class="flex items-center gap-1.5 px-space-md py-2 bg-surface-charcoal hover:bg-surface-container-high border border-surface-border hover:border-surface-border/80 text-on-surface rounded-lg font-body-sm text-[13px] font-semibold transition-all shadow-sm active:scale-95" onclick="triggerQuickExport('CSV')">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">file_download</span>
+<span>Export CSV</span>
+</button>
+<button class="flex items-center gap-1.5 px-space-md py-2 bg-primary-container hover:bg-primary-fixed-dim text-surface-dim rounded-lg font-headline-sm text-[13px] font-bold transition-all shadow-[0_0_16px_rgba(2,245,118,0.3)] active:scale-95" onclick="triggerQuickExport('PDF')">
+<span class="material-symbols-outlined text-[16px] font-bold">print</span>
+<span>RBI Inspection Dossier</span>
+</button>
+</div>
+</section>
+<!-- Top Executive Metrics Strip -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-xl">
+<!-- Metric 1 -->
+<div class="bg-surface-charcoal border border-surface-border rounded-xl p-space-md shadow-lg relative overflow-hidden flex flex-col justify-between group hover:border-primary-container/40 transition-all">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-primary-container/5 blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-code text-[11px] uppercase text-text-muted tracking-wider">Total Active Loan Files</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-lg text-display-hero-mobile text-on-surface font-extrabold tracking-tight">42</span>
+<span class="font-body-sm text-body-sm text-text-muted uppercase font-medium">Files</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low border border-surface-border flex items-center justify-center text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[22px]">folder_managed</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between bg-surface-container-lowest/80 border border-surface-border/50 rounded-lg p-2 px-3">
+<span class="font-body-sm text-body-sm text-text-muted">Aggregate Requested Limit</span>
+<span class="font-label-code text-[13px] text-primary-container font-bold tracking-tight">₹68.4 Cr</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-charcoal border border-surface-border rounded-xl p-space-md shadow-lg relative overflow-hidden flex flex-col justify-between group hover:border-risk-crimson/50 transition-all">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-risk-crimson/10 blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-code text-[11px] uppercase text-text-muted tracking-wider">Blocked at Document Stage</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-lg text-display-hero-mobile text-risk-crimson font-extrabold tracking-tight">14</span>
+<span class="font-body-sm text-body-sm text-risk-crimson/80 uppercase font-medium">Files</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-risk-crimson/15 border border-risk-crimson/30 flex items-center justify-center text-risk-crimson shadow-[0_0_12px_rgba(255,51,102,0.2)]">
+<span class="material-symbols-outlined text-[22px]">rule_folder</span>
+</div>
+</div>
+<div class="mt-space-md flex flex-col gap-1.5 bg-surface-container-lowest/80 border border-surface-border/50 rounded-lg p-2 px-3">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-text-muted">Pipeline Share</span>
+<span class="font-label-code text-[12px] font-bold text-risk-crimson">33.3% of pipeline</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-risk-crimson rounded-full shadow-[0_0_8px_#FF3366]" style="width: 33.3%;"></div>
+</div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-charcoal border border-surface-border rounded-xl p-space-md shadow-lg relative overflow-hidden flex flex-col justify-between group hover:border-secondary/40 transition-all">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-secondary-container/10 blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-code text-[11px] uppercase text-text-muted tracking-wider">Reminders Dispatched (30D)</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-lg text-display-hero-mobile text-on-surface font-extrabold tracking-tight">184</span>
+<span class="font-body-sm text-body-sm text-text-muted uppercase font-medium">Sent</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low border border-surface-border flex items-center justify-center text-secondary-fixed shadow-inner">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between bg-surface-container-lowest/80 border border-surface-border/50 rounded-lg p-2 px-3">
+<span class="flex items-center gap-1.5 font-body-sm text-body-sm text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[15px]">how_to_reg</span>
+          100% RM-Approved
+        </span>
+<span class="font-label-code text-[10px] px-2 py-0.5 rounded border border-surface-border bg-surface-container text-text-muted font-medium">0 Autonomous</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-charcoal border border-surface-border rounded-xl p-space-md shadow-lg relative overflow-hidden flex flex-col justify-between group hover:border-risk-amber/40 transition-all">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-risk-amber/10 blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-code text-[11px] uppercase text-text-muted tracking-wider">Avg Document Turnaround</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-headline-lg text-display-hero-mobile text-risk-amber font-extrabold tracking-tight">5.4</span>
+<span class="font-body-sm text-body-sm text-text-muted uppercase font-medium">Days</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-risk-amber/15 border border-risk-amber/30 flex items-center justify-center text-risk-amber shadow-[0_0_10px_rgba(255,184,0,0.2)]">
+<span class="material-symbols-outlined text-[22px]">timelapse</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center justify-between text-body-sm font-body-sm bg-surface-container-lowest/80 border border-surface-border/50 rounded-lg p-2 px-3">
+<span class="text-text-muted">Internal Target</span>
+<span class="font-label-code text-[11px] text-risk-amber flex items-center gap-1.5 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-crimson animate-pulse shadow-[0_0_6px_#FF3366]"></span>
+          &lt; 4.0 Days (+1.4d lag)
+        </span>
+</div>
+</div>
+</section>
+<!-- Section 1: Pipeline Waiting Breakdown & Analytics -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-md mb-space-xl">
+<!-- Aging Histogram / Velocity Cards (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-charcoal border border-surface-border rounded-xl p-space-lg shadow-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-sm text-on-surface font-bold tracking-tight">Pipeline Waiting Breakdown by Aging</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Distribution of borrower document submission latency across 42 active files</p>
+</div>
+<span class="px-space-sm py-1 bg-surface-container-low border border-surface-border rounded text-text-muted font-label-code text-[11px]">SME Loan Cohort</span>
+</div>
+<!-- Aging Buckets Horizontal Visual Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm mb-space-md">
+<!-- 0-3 Days -->
+<div class="bg-surface-container-lowest/90 border border-surface-border/80 rounded-lg p-space-md flex flex-col justify-between relative group hover:border-primary-container/50 transition-all">
+<div class="flex items-center justify-between text-text-muted">
+<span class="font-label-code text-[11px] font-semibold tracking-wider text-primary-container">0–3 DAYS</span>
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_#02f576]"></span>
+</div>
+<div class="my-space-sm">
+<div class="font-headline-lg text-headline-lg text-on-surface font-bold">19</div>
+<div class="font-body-sm text-[12px] text-primary-container/90 leading-tight font-medium">Healthy velocity</div>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full shadow-[0_0_6px_#02f576]" style="width: 45.2%;"></div>
+</div>
+<span class="font-label-code text-[11px] text-text-muted text-right mt-1.5">45.2%</span>
+</div>
+<!-- 4-7 Days -->
+<div class="bg-surface-container-lowest/90 border border-surface-border/80 rounded-lg p-space-md flex flex-col justify-between relative group hover:border-tertiary-fixed-dim/50 transition-all">
+<div class="flex items-center justify-between text-text-muted">
+<span class="font-label-code text-[11px] font-semibold tracking-wider text-tertiary-fixed-dim">4–7 DAYS</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim shadow-[0_0_6px_#47d6ff]"></span>
+</div>
+<div class="my-space-sm">
+<div class="font-headline-lg text-headline-lg text-on-surface font-bold">12</div>
+<div class="font-body-sm text-[12px] text-text-muted leading-tight">Attention required</div>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full rounded-full shadow-[0_0_6px_#47d6ff]" style="width: 28.5%;"></div>
+</div>
+<span class="font-label-code text-[11px] text-text-muted text-right mt-1.5">28.5%</span>
+</div>
+<!-- 8-14 Days -->
+<div class="bg-surface-container-lowest/90 border border-surface-border/80 rounded-lg p-space-md flex flex-col justify-between relative group hover:border-risk-amber/50 transition-all">
+<div class="flex items-center justify-between text-text-muted">
+<span class="font-label-code text-[11px] font-semibold tracking-wider text-risk-amber">8–14 DAYS</span>
+<span class="w-2 h-2 rounded-full bg-risk-amber shadow-[0_0_6px_#FFB800]"></span>
+</div>
+<div class="my-space-sm">
+<div class="font-headline-lg text-headline-lg text-risk-amber font-bold">8</div>
+<div class="font-body-sm text-[12px] text-risk-amber/80 leading-tight">Escalated follow-up</div>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-risk-amber h-full rounded-full shadow-[0_0_6px_#FFB800]" style="width: 19.0%;"></div>
+</div>
+<span class="font-label-code text-[11px] text-text-muted text-right mt-1.5">19.0%</span>
+</div>
+<!-- >14 Days Critical -->
+<div class="bg-surface-container-lowest/90 border border-risk-crimson/50 rounded-lg p-space-md flex flex-col justify-between relative group hover:border-risk-crimson transition-all">
+<div class="flex items-center justify-between text-risk-crimson">
+<span class="font-label-code text-[11px] font-semibold tracking-wider text-risk-crimson">&gt;14 DAYS</span>
+<span class="w-2 h-2 rounded-full bg-risk-crimson animate-ping"></span>
+</div>
+<div class="my-space-sm">
+<div class="font-headline-lg text-headline-lg text-risk-crimson font-bold">3</div>
+<div class="font-body-sm text-[12px] text-risk-crimson font-medium leading-tight">Critical stall</div>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-risk-crimson h-full rounded-full shadow-[0_0_8px_#FF3366]" style="width: 7.1%;"></div>
+</div>
+<span class="font-label-code text-[11px] text-risk-crimson text-right mt-1.5 font-semibold">7.1%</span>
+</div>
+</div>
+</div>
+<!-- Critical Stall Alert Callout -->
+<div class="bg-risk-crimson/10 border border-risk-crimson/40 rounded-lg p-space-sm px-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-xs mt-auto">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="material-symbols-outlined text-risk-crimson text-[20px]">warning</span>
+<span class="font-headline-sm text-[13px] text-risk-crimson font-bold">Critical Stalls Require CRO Escalation:</span>
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded bg-surface-charcoal border border-risk-crimson/30 font-label-code text-[12px] text-on-surface font-semibold">Omkar Precision</span>
+<span class="px-2 py-0.5 rounded bg-surface-charcoal border border-risk-crimson/30 font-label-code text-[12px] text-on-surface font-semibold">Maruti Textiles</span>
+<span class="px-2 py-0.5 rounded bg-surface-charcoal border border-risk-crimson/30 font-label-code text-[12px] text-on-surface font-semibold">Alok Die-Cast</span>
+</div>
+</div>
+<button class="text-risk-crimson hover:text-white font-label-code text-[11px] uppercase tracking-wider hover:underline flex items-center gap-1 self-end md:self-auto font-bold transition-colors" onclick="filterAuditByCritical()">
+<span>Filter Ledger</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Breakdown by Current Operational Stage (5 Cols) -->
+<div class="lg:col-span-5 bg-surface-charcoal border border-surface-border rounded-xl p-space-lg shadow-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<h2 class="font-headline-md text-headline-sm text-on-surface font-bold tracking-tight">Stage Distribution</h2>
+<span class="font-label-code text-[11px] text-text-muted px-2 py-0.5 rounded bg-surface-container-low border border-surface-border">Active Files: 42</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mb-space-md">Current bottleneck profile across the three primary loan document gating phases</p>
+</div>
+<div class="space-y-space-md my-auto py-2">
+<!-- Stage 1 -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-primary-container shadow-[0_0_6px_#02f576]"></span>
+<span class="font-body-md text-body-sm font-semibold text-on-surface">Doc Collection</span>
+</div>
+<div class="flex items-center gap-2 font-label-code text-[12px]">
+<span class="font-bold text-on-surface">22 files</span>
+<span class="text-primary-container font-semibold">(52.4%)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden border border-surface-border/40">
+<div class="bg-primary-container h-full rounded-full shadow-[0_0_8px_#02f576]" style="width: 52.4%;"></div>
+</div>
+</div>
+<!-- Stage 2 -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-secondary-fixed shadow-[0_0_6px_#c9beff]"></span>
+<span class="font-body-md text-body-sm font-semibold text-on-surface">Incomplete Review</span>
+</div>
+<div class="flex items-center gap-2 font-label-code text-[12px]">
+<span class="font-bold text-on-surface">11 files</span>
+<span class="text-secondary font-semibold">(26.2%)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden border border-surface-border/40">
+<div class="bg-secondary h-full rounded-full shadow-[0_0_8px_#c9beff]" style="width: 26.2%;"></div>
+</div>
+</div>
+<!-- Stage 3 -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-risk-crimson shadow-[0_0_6px_#FF3366]"></span>
+<span class="font-body-md text-body-sm font-semibold text-risk-crimson">Analyst Blocked</span>
+</div>
+<div class="flex items-center gap-2 font-label-code text-[12px]">
+<span class="font-bold text-risk-crimson">9 files</span>
+<span class="text-risk-crimson font-semibold">(21.4%)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden border border-surface-border/40">
+<div class="bg-risk-crimson h-full rounded-full shadow-[0_0_8px_#FF3366]" style="width: 21.4%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-2 border-t border-surface-border/60 flex items-center justify-between font-label-code text-[11px] text-text-muted">
+<span class="flex items-center gap-1.5 text-primary-container">
+<span class="material-symbols-outlined text-[15px]">info</span>
+          Underwriting gated until ≥95% doc completion
+        </span>
+<span class="text-text-muted">Standard SLA: 48h / Stage</span>
+</div>
+</div>
+</section>
+<!-- Section 2: Searchable Regulatory & Operational Audit Log -->
+<section class="bg-surface-charcoal border border-surface-border rounded-xl p-space-lg shadow-xl flex flex-col">
+<!-- Log Header & Filters Strip -->
+<div class="flex flex-col gap-space-md mb-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-sm text-on-surface font-bold tracking-tight">Searchable Regulatory &amp; Operational Audit Log</h2>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 border border-primary-container/30 text-primary-container font-label-code text-[10px] font-bold uppercase tracking-wider">Immutable Append-Only</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Cryptographically signed verification actions, waiver authorizations, and dispatch receipts</p>
+</div>
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="px-space-sm py-1 bg-surface-container-lowest border border-surface-border rounded text-text-muted font-label-code text-[11px]">Showing 6 of 1,482 events</span>
+</div>
+</div>
+<!-- Filter Controls Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm bg-surface-container-lowest p-space-sm rounded-lg border border-surface-border/80">
+<!-- Search Input -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-text-muted text-[17px]">search</span>
+<input class="w-full h-9 pl-9 pr-3 rounded bg-surface-charcoal border border-surface-border text-on-surface placeholder:text-text-muted text-body-sm font-body-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="auditSearchInput" oninput="handleTableFilter()" placeholder="Search actor, client, or KF-2026-..." type="text"/>
+</div>
+<!-- Event Type Select -->
+<div class="relative flex items-center">
+<select class="w-full h-9 px-3 rounded bg-surface-charcoal border border-surface-border text-on-surface text-body-sm font-body-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container appearance-none transition-all cursor-pointer" id="auditEventTypeFilter" onchange="handleTableFilter()">
+<option value="ALL">All Event Types</option>
+<option value="Request Created">Request Created</option>
+<option value="Reminder Approved">Reminder Approved &amp; Sent</option>
+<option value="Marked Received">Document Received</option>
+<option value="Waived">Document Waived</option>
+<option value="Analyst Requisition">Analyst Requisition</option>
+<option value="Checklist Generated">Stage Transition / Checklist</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 pointer-events-none text-text-muted text-[17px]">expand_more</span>
+</div>
+<!-- Date Range Selection -->
+<div class="relative flex items-center">
+<select class="w-full h-9 px-3 rounded bg-surface-charcoal border border-surface-border text-on-surface text-body-sm font-body-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container appearance-none transition-all cursor-pointer">
+<option>Date: Past 7 Days (20–26 Feb 2026)</option>
+<option>Date: Past 30 Days (Jan–Feb 2026)</option>
+<option>Date: Current Financial Quarter (Q4 FY26)</option>
+<option>Custom Date Window...</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 pointer-events-none text-text-muted text-[17px]">calendar_today</span>
+</div>
+<!-- Clear / Refresh Controls -->
+<div class="flex items-center gap-space-xs">
+<button class="flex-1 h-9 px-space-md rounded bg-surface-container-high hover:bg-surface-bright border border-surface-border text-on-surface font-body-sm text-[12px] font-medium transition-all flex items-center justify-center gap-1.5" onclick="resetFilters()">
+<span class="material-symbols-outlined text-[15px] text-text-muted">restart_alt</span>
+<span>Reset Filters</span>
+</button>
+<button class="w-9 h-9 rounded bg-surface-charcoal hover:bg-surface-container-high border border-surface-border text-on-surface flex items-center justify-center transition-all" onclick="simulateRefresh()" title="Refresh live feed">
+<span class="material-symbols-outlined text-[17px] text-primary-container">sync</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="overflow-x-auto rounded-lg border border-surface-border">
+<table class="w-full text-left border-collapse" id="auditTable">
+<thead>
+<tr class="bg-surface-container-lowest text-text-muted font-label-code text-[11px] uppercase tracking-wider h-10 border-b border-surface-border">
+<th class="py-2 px-3 w-48 font-semibold">Timestamp (IST)</th>
+<th class="py-2 px-3 w-52 font-semibold">Application &amp; Client</th>
+<th class="py-2 px-3 w-48 font-semibold">Event Type</th>
+<th class="py-2 px-3 w-52 font-semibold">Actor (Name &amp; Role)</th>
+<th class="py-2 px-3 font-semibold">Action Detail &amp; Regulatory Reason</th>
+<th class="py-2 px-3 w-40 text-right font-semibold">Compliance Hash</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-border font-body-sm text-body-sm text-on-surface bg-surface-charcoal/70">
+<!-- Row 1 -->
+<tr class="audit-row hover:bg-surface-container-low transition-colors h-12" data-actor="Vikram Desai RM" data-app="KF-2026-1049 Omkar Precision" data-event="Reminder Approved">
+<td class="py-2 px-3 font-label-code text-[12px] text-text-muted whitespace-nowrap">
+              26 Feb 2026, 10:15:22
+            </td>
+<td class="py-2 px-3">
+<div class="flex flex-col">
+<span class="font-label-code text-[13px] font-bold text-primary-container">KF-2026-1049</span>
+<span class="font-body-sm text-text-muted text-[12px]">Omkar Precision</span>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-code text-[11px] bg-secondary-container/30 border border-secondary-container text-secondary font-semibold">
+                Reminder Approved
+              </span>
+</td>
+<td class="py-2 px-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-primary-container/20 border border-primary-container/40 text-primary-container flex items-center justify-center font-label-code text-[10px] font-bold">VD</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface text-[13px]">Vikram Desai</span>
+<span class="font-label-code text-[10px] text-text-muted">Relationship Mgr</span>
+</div>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="text-on-surface">Approved Round 2 reminder for <span class="font-semibold text-primary">SBI CC Stmt &amp; GSTR-3B</span></span>
+</td>
+<td class="py-2 px-3 text-right">
+<button class="font-label-code text-[11px] text-primary-container hover:text-white bg-surface-container-lowest border border-surface-border hover:border-primary-container px-2 py-1 rounded transition-all" onclick="copyHash('#AUD-99201-VK')" title="Click to copy hash">
+                #AUD-99201-VK
+              </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="audit-row hover:bg-surface-container-low transition-colors h-12" data-actor="Sunita Rao Ops Lead" data-app="KF-2026-1033 Alok Precision" data-event="Waived">
+<td class="py-2 px-3 font-label-code text-[12px] text-text-muted whitespace-nowrap">
+              26 Feb 2026, 09:44:10
+            </td>
+<td class="py-2 px-3">
+<div class="flex flex-col">
+<span class="font-label-code text-[13px] font-bold text-primary-container">KF-2026-1033</span>
+<span class="font-body-sm text-text-muted text-[12px]">Alok Precision</span>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-code text-[11px] bg-surface-container-high border border-surface-border text-on-surface-variant font-semibold">
+                Document Waived
+              </span>
+</td>
+<td class="py-2 px-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-tertiary-fixed-dim/20 border border-tertiary-fixed-dim/40 text-tertiary-fixed-dim flex items-center justify-center font-label-code text-[10px] font-bold">SR</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface text-[13px]">Sunita Rao</span>
+<span class="font-label-code text-[10px] text-text-muted">Ops Team Lead</span>
+</div>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="text-on-surface">Waived 2nd utility bill: <span class="font-semibold text-on-surface">Owned commercial unit tax receipt verified</span></span>
+</td>
+<td class="py-2 px-3 text-right">
+<button class="font-label-code text-[11px] text-primary-container hover:text-white bg-surface-container-lowest border border-surface-border hover:border-primary-container px-2 py-1 rounded transition-all" onclick="copyHash('#AUD-99182-SR')" title="Click to copy hash">
+                #AUD-99182-SR
+              </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="audit-row hover:bg-surface-container-low transition-colors h-12" data-actor="Priya Sharma RM" data-app="KF-2026-1162 Kalyani Pharma" data-event="Marked Received">
+<td class="py-2 px-3 font-label-code text-[12px] text-text-muted whitespace-nowrap">
+              25 Feb 2026, 17:30:05
+            </td>
+<td class="py-2 px-3">
+<div class="flex flex-col">
+<span class="font-label-code text-[13px] font-bold text-primary-container">KF-2026-1162</span>
+<span class="font-body-sm text-text-muted text-[12px]">Kalyani Pharma</span>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-code text-[11px] bg-primary-container/15 border border-primary-container/40 text-primary-container font-semibold">
+                Marked Received
+              </span>
+</td>
+<td class="py-2 px-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-primary-container/20 border border-primary-container/40 text-primary-container flex items-center justify-center font-label-code text-[10px] font-bold">PS</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface text-[13px]">Priya Sharma</span>
+<span class="font-label-code text-[10px] text-text-muted">Relationship Mgr</span>
+</div>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="text-on-surface">Uploaded <span class="font-semibold text-primary">GST REG-06 certificate</span> via RM upload portal</span>
+</td>
+<td class="py-2 px-3 text-right">
+<button class="font-label-code text-[11px] text-primary-container hover:text-white bg-surface-container-lowest border border-surface-border hover:border-primary-container px-2 py-1 rounded transition-all" onclick="copyHash('#AUD-99144-PS')" title="Click to copy hash">
+                #AUD-99144-PS
+              </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="audit-row hover:bg-surface-container-low transition-colors h-12" data-actor="Ananya Sengupta Analyst" data-app="KF-2026-1049 Omkar Precision" data-event="Analyst Requisition">
+<td class="py-2 px-3 font-label-code text-[12px] text-text-muted whitespace-nowrap">
+              25 Feb 2026, 14:12:18
+            </td>
+<td class="py-2 px-3">
+<div class="flex flex-col">
+<span class="font-label-code text-[13px] font-bold text-primary-container">KF-2026-1049</span>
+<span class="font-body-sm text-text-muted text-[12px]">Omkar Precision</span>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-code text-[11px] bg-risk-crimson/20 border border-risk-crimson/40 text-risk-crimson font-semibold">
+                Analyst Requisition
+              </span>
+</td>
+<td class="py-2 px-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-secondary/20 border border-secondary/40 text-secondary-fixed flex items-center justify-center font-label-code text-[10px] font-bold">AS</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface text-[13px]">Ananya Sengupta</span>
+<span class="font-label-code text-[10px] text-text-muted">Credit Analyst</span>
+</div>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="text-risk-crimson font-medium">Flagged SBI CC statement as blocking underwriting file</span>
+</td>
+<td class="py-2 px-3 text-right">
+<button class="font-label-code text-[11px] text-primary-container hover:text-white bg-surface-container-lowest border border-surface-border hover:border-primary-container px-2 py-1 rounded transition-all" onclick="copyHash('#AUD-99119-AS')" title="Click to copy hash">
+                #AUD-99119-AS
+              </button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="audit-row hover:bg-surface-container-low transition-colors h-12" data-actor="System Onboarding Pack" data-app="KF-2026-1188 Narmada Food" data-event="Checklist Generated">
+<td class="py-2 px-3 font-label-code text-[12px] text-text-muted whitespace-nowrap">
+              25 Feb 2026, 11:05:40
+            </td>
+<td class="py-2 px-3">
+<div class="flex flex-col">
+<span class="font-label-code text-[13px] font-bold text-primary-container">KF-2026-1188</span>
+<span class="font-body-sm text-text-muted text-[12px]">Narmada Food</span>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-code text-[11px] bg-surface-container-high border border-surface-border text-tertiary-fixed-dim font-semibold">
+                Checklist Generated
+              </span>
+</td>
+<td class="py-2 px-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-surface-container border border-surface-border text-text-muted flex items-center justify-center font-label-code text-[10px]">
+<span class="material-symbols-outlined text-[13px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface text-[13px]">System Engine</span>
+<span class="font-label-code text-[10px] text-text-muted">Onboarding Pack</span>
+</div>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="text-on-surface">Automated standard checklist for <span class="font-semibold text-on-surface">Food Processing sub-₹25L loan</span></span>
+</td>
+<td class="py-2 px-3 text-right">
+<button class="font-label-code text-[11px] text-primary-container hover:text-white bg-surface-container-lowest border border-surface-border hover:border-primary-container px-2 py-1 rounded transition-all" onclick="copyHash('#AUD-99088-SYS')" title="Click to copy hash">
+                #AUD-99088-SYS
+              </button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="audit-row hover:bg-surface-container-low transition-colors h-12" data-actor="Vikram Desai RM" data-app="KF-2026-1021 Maruti Textiles" data-event="Reminder Approved">
+<td class="py-2 px-3 font-label-code text-[12px] text-text-muted whitespace-nowrap">
+              24 Feb 2026, 16:20:00
+            </td>
+<td class="py-2 px-3">
+<div class="flex flex-col">
+<span class="font-label-code text-[13px] font-bold text-primary-container">KF-2026-1021</span>
+<span class="font-body-sm text-text-muted text-[12px]">Maruti Textiles</span>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-code text-[11px] bg-secondary-container/30 border border-secondary-container text-secondary font-semibold">
+                Reminder Approved
+              </span>
+</td>
+<td class="py-2 px-3">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-md bg-primary-container/20 border border-primary-container/40 text-primary-container flex items-center justify-center font-label-code text-[10px] font-bold">VD</div>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface text-[13px]">Vikram Desai</span>
+<span class="font-label-code text-[10px] text-text-muted">Relationship Mgr</span>
+</div>
+</div>
+</td>
+<td class="py-2 px-3">
+<span class="text-on-surface">Approved Round 3 final reminder for <span class="font-semibold text-primary">Partner 2 KYC</span></span>
+</td>
+<td class="py-2 px-3 text-right">
+<button class="font-label-code text-[11px] text-primary-container hover:text-white bg-surface-container-lowest border border-surface-border hover:border-primary-container px-2 py-1 rounded transition-all" onclick="copyHash('#AUD-99042-VK')" title="Click to copy hash">
+                #AUD-99042-VK
+              </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Empty State for Filters (hidden by default) -->
+<div class="hidden py-space-xl flex-col items-center justify-center text-center" id="noResultsNotice">
+<span class="material-symbols-outlined text-text-muted text-[36px] mb-2">find_in_page</span>
+<p class="font-headline-sm text-headline-sm text-on-surface font-semibold">No audit events match your criteria</p>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Try adjusting the text query or event type filter.</p>
+</div>
+<!-- Bottom Pagination & Regulatory Export Strip -->
+<div class="mt-space-lg pt-space-md border-t border-surface-border flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Legal Notice & Ledger Integrity -->
+<div class="flex items-center gap-space-sm text-text-muted">
+<span class="material-symbols-outlined text-[20px] text-primary-container">verified_user</span>
+<span class="font-label-code text-[11px] text-text-muted">
+          SHA-256 Ledger Authenticity Verified · Compliant with Reserve Bank of India Master Direction for Digital Lending &amp; Document Retention SOP-2026.
+        </span>
+</div>
+<!-- Export Buttons -->
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end">
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-border text-on-surface font-body-sm text-[13px] font-semibold transition-all active:scale-95" onclick="triggerQuickExport('PDF')">
+<span class="material-symbols-outlined text-[17px] text-risk-crimson">picture_as_pdf</span>
+<span>Regulatory Audit Report (PDF)</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-border text-on-surface font-body-sm text-[13px] font-semibold transition-all active:scale-95" onclick="triggerQuickExport('CSV')">
+<span class="material-symbols-outlined text-[17px] text-primary-container">table_chart</span>
+<span>Full Event Dump (CSV)</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Notification Toast for Hash Copy / Action -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-surface-charcoal border border-primary-container/40 text-on-surface px-space-md py-2.5 rounded-lg shadow-2xl flex items-center gap-2.5 font-label-code text-[12px]" id="feedbackToast">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span id="toastMessage">Hash copied to clipboard</span>
+</div>
+</div>
+<script>
+  function showToast(message) {
+    const toast = document.getElementById('feedbackToast');
+    const toastMsg = document.getElementById('toastMessage');
+    if (!toast || !toastMsg) return;
+    toastMsg.textContent = message;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    setTimeout(() => {
+      toast.classList.add('translate-y-20', 'opacity-0');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 2800);
+  }
+
+  function copyHash(hashStr) {
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText(hashStr);
+    }
+    showToast('Compliance signature ' + hashStr + ' copied to clipboard');
+  }
+
+  function handleTableFilter() {
+    const searchVal = (document.getElementById('auditSearchInput').value || '').toLowerCase().trim();
+    const eventType = document.getElementById('auditEventTypeFilter').value;
+    const rows = document.querySelectorAll('.audit-row');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      const app = (row.getAttribute('data-app') || '').toLowerCase();
+      const actor = (row.getAttribute('data-actor') || '').toLowerCase();
+      const ev = row.getAttribute('data-event') || '';
+      const text = row.innerText.toLowerCase();
+
+      const matchesSearch = !searchVal || text.includes(searchVal) || app.includes(searchVal) || actor.includes(searchVal);
+      const matchesEvent = (eventType === 'ALL') || (ev === eventType);
+
+      if (matchesSearch && matchesEvent) {
+        row.style.display = '';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    const noResults = document.getElementById('noResultsNotice');
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+        noResults.classList.add('flex');
+      } else {
+        noResults.classList.add('hidden');
+        noResults.classList.remove('flex');
+      }
+    }
+  }
+
+  function filterAuditByCritical() {
+    const input = document.getElementById('auditSearchInput');
+    if (input) {
+      input.value = 'Omkar';
+      handleTableFilter();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast('Filtered audit log by critical stalled file: Omkar Precision');
+    }
+  }
+
+  function resetFilters() {
+    const input = document.getElementById('auditSearchInput');
+    const select = document.getElementById('auditEventTypeFilter');
+    if (input) input.value = '';
+    if (select) select.value = 'ALL';
+    handleTableFilter();
+    showToast('Filters reset to default view');
+  }
+
+  function simulateRefresh() {
+    showToast('Ledger refreshed. Zero unverified manual modifications detected.');
+  }
+
+  function triggerQuickExport(format) {
+    showToast('Preparing ' + format + ' download with cryptographic audit stamps...');
+  }
+</script></main></div></body></html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- Sign-in page. Not in the Stitch export (added; uses the same tokens and header colours). -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in · Kestrel Document Tracker (prototype)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" src="/src/login.ts"></script>
+  </head>
+  <body class="bg-surface font-body-default text-on-surface antialiased min-h-screen flex flex-col">
+    <div class="prototype-banner" role="note">Prototype. Synthetic data only.</div>
+    <header class="h-12 bg-inverse-surface text-inverse-on-surface px-gutter flex items-center gap-space-sm">
+      <span class="font-headline-sm text-headline-sm text-on-primary tracking-tight">Kestrel</span>
+      <span class="px-space-sm py-0.5 rounded bg-surface-container-highest/20 text-outline-variant font-label-compact text-label-compact">Document Tracker · SME Lending (≤₹25L)</span>
+    </header>
+    <main class="flex-1 flex items-center justify-center p-space-lg">
+      <form method="post" action="/auth/login" class="bg-surface-container-lowest rounded-xl shadow-sm p-space-xl w-full max-w-sm flex flex-col gap-space-md" aria-labelledby="login-title">
+        <h1 id="login-title" class="font-headline-md text-headline-md">Sign in</h1>
+        <p class="font-body-compact text-body-compact text-on-surface-variant">Sign in with your own username. What you see depends on your role. Synthetic data only; no credit decisions are made here.</p>
+        <label for="username" class="font-label-compact text-label-compact uppercase text-on-surface-variant">Username</label>
+        <input id="username" name="username" type="text" required autocomplete="username" autocapitalize="none" spellcheck="false" autofocus class="h-9 px-space-sm rounded border border-outline-variant bg-surface-container-lowest text-on-surface" />
+        <label for="password" class="font-label-compact text-label-compact uppercase text-on-surface-variant">Password</label>
+        <input id="password" name="password" type="password" required autocomplete="current-password" class="h-9 px-space-sm rounded border border-outline-variant bg-surface-container-lowest text-on-surface" />
+        <p id="login-error" role="alert" class="hidden p-space-sm rounded bg-error-container text-on-error-container font-label-default text-label-default"></p>
+        <button type="submit" class="h-9 rounded bg-primary text-on-primary hover:bg-primary-container font-label-default text-label-default font-semibold">Sign in</button>
+      </form>
+    </main>
+  </body>
+</html>

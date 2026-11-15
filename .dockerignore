@@ -1,0 +1,22 @@
+# Never send secrets, local data or build output into the image context.
+.git
+.github
+.env
+.env.*
+!.env.example
+**/node_modules
+frontend/dist
+frontend/test-results
+.venv
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+Design
+docs
+# Local list of demo sign-ins (contains passwords)
+LOGINS.local.md

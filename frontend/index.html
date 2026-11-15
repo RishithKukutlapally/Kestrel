@@ -1,0 +1,100 @@
+<!doctype html>
+<!-- Shell markup from Design/application_queue_1/code.html (header, protocol strip, sidebar).
+     Additions: prototype banner, skip link, header height measured by JS (the Stitch pt-19/top-19
+     classes do not exist in Tailwind), whitespace-nowrap on nav items, role switcher dialog. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kestrel Document Tracker (prototype)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body class="bg-surface font-body-default text-on-surface antialiased">
+    <a href="#screen" class="skip-link">Skip to main content</a>
+    <header id="app-header" class="fixed top-0 left-0 right-0 z-50 bg-inverse-surface text-inverse-on-surface">
+      <div class="prototype-banner" role="note">Prototype. Synthetic data only.</div>
+      <div class="h-12 w-full px-gutter flex items-center justify-between">
+        <div class="flex items-center gap-space-lg min-w-0">
+          <div class="flex items-center gap-space-sm">
+            <span class="font-headline-sm text-headline-sm text-on-primary tracking-tight">Kestrel</span>
+            <span class="hidden md:inline px-space-sm py-0.5 rounded bg-surface-container-highest/20 text-outline-variant font-label-compact text-label-compact whitespace-nowrap">Document Tracker · SME Lending (≤₹25L)</span>
+          </div>
+          <nav id="top-nav" aria-label="Screens" class="hidden xl:flex items-center gap-space-xs ml-space-md">
+            <a class="nav-top px-space-md py-1 rounded text-outline-variant hover:text-inverse-on-surface transition-colors font-label-default text-label-default whitespace-nowrap" data-screen="queue" href="#/queue">Application Queue</a>
+            <a class="nav-top px-space-md py-1 rounded text-outline-variant hover:text-inverse-on-surface transition-colors font-label-default text-label-default whitespace-nowrap" data-screen="checklist" href="#/checklist">Checklist &amp; Timeline</a>
+            <a class="nav-top px-space-md py-1 rounded text-outline-variant hover:text-inverse-on-surface transition-colors font-label-default text-label-default whitespace-nowrap" data-screen="composer" href="#/composer">Reminder Composer</a>
+            <a class="nav-top px-space-md py-1 rounded text-outline-variant hover:text-inverse-on-surface transition-colors font-label-default text-label-default whitespace-nowrap" data-screen="analyst" href="#/analyst">Analyst File View</a>
+            <a class="nav-top px-space-md py-1 rounded text-outline-variant hover:text-inverse-on-surface transition-colors font-label-default text-label-default whitespace-nowrap" data-screen="oversight" href="#/oversight">Oversight &amp; Audit</a>
+            <a class="nav-top px-space-md py-1 rounded text-outline-variant hover:text-inverse-on-surface transition-colors font-label-default text-label-default whitespace-nowrap" data-screen="agents" href="#/agents">AI Agents &amp; Cost</a>
+          </nav>
+        </div>
+        <div class="flex items-center gap-space-md">
+          <form id="header-search" class="relative hidden md:flex items-center" role="search">
+            <span class="material-symbols-outlined absolute left-2 text-outline-variant text-[16px]" aria-hidden="true">search</span>
+            <label for="header-search-input" class="sr-only">Search client or application ID</label>
+            <input id="header-search-input" class="h-8 pl-7 pr-3 rounded bg-surface-container-highest/10 text-inverse-on-surface placeholder:text-outline-variant font-body-compact text-body-compact focus:bg-surface-container-highest/20 w-56 2xl:w-64" placeholder="Search client, ID (KF-2026-XXXX)..." type="search" />
+          </form>
+          <div class="hidden 2xl:flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-highest/10 text-outline-variant font-label-compact text-label-compact whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary-fixed" aria-hidden="true"></span><span>Zero automatic sends</span>
+          </div>
+          <button id="user-button" type="button" class="flex items-center gap-space-sm pl-space-xs rounded" aria-haspopup="dialog" aria-controls="role-dialog" title="Your access and sign out">
+            <span class="hidden sm:flex flex-col text-right">
+              <span id="user-name" class="font-label-default text-label-default text-inverse-on-surface leading-none">…</span>
+              <span id="user-role" class="font-label-compact text-label-compact text-outline-variant leading-tight">…</span>
+            </span>
+            <span class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]" aria-hidden="true">person</span></span>
+          </button>
+        </div>
+      </div>
+      <div id="protocol-strip" class="h-7 w-full bg-surface-container-high px-gutter flex items-center justify-between text-on-surface-variant font-label-compact text-label-compact">
+        <div class="flex items-center gap-space-xs min-w-0">
+          <span class="material-symbols-outlined text-primary text-[15px]" aria-hidden="true">lock</span>
+          <span class="font-semibold text-on-surface">RM Protocol:</span>
+          <span class="truncate">Draft reminders require human RM review and authorization before dispatch. No reminders or credit decisions are sent autonomously.</span>
+        </div>
+        <button id="protocol-dismiss" type="button" class="flex items-center gap-0.5 text-on-surface-variant hover:text-on-surface rounded"><span class="material-symbols-outlined text-[14px]" aria-hidden="true">close</span><span>Dismiss</span></button>
+      </div>
+    </header>
+
+    <aside id="app-aside" class="app-aside fixed left-0 bottom-0 w-14 bg-surface-container-lowest z-40 flex flex-col justify-between items-center py-space-sm shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <nav id="side-nav" aria-label="Screens (icons)" class="flex flex-col items-center gap-space-xs w-full px-space-xs">
+        <a class="nav-side w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-screen="queue" href="#/queue" title="Application Queue" aria-label="Application Queue"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">table_rows</span></a>
+        <a class="nav-side w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-screen="checklist" href="#/checklist" title="Checklist &amp; Timeline" aria-label="Checklist and Timeline"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">checklist</span></a>
+        <a class="nav-side w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-screen="composer" href="#/composer" title="Reminder Composer" aria-label="Reminder Composer"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">outgoing_mail</span></a>
+        <a class="nav-side w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-screen="analyst" href="#/analyst" title="Analyst File View" aria-label="Analyst File View"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">fact_check</span></a>
+        <a class="nav-side w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-screen="oversight" href="#/oversight" title="Oversight &amp; Audit" aria-label="Oversight and Audit"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">verified_user</span></a>
+        <a class="nav-side w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-screen="agents" href="#/agents" title="AI Agent Workbench" aria-label="AI Agent Workbench"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">smart_toy</span></a>
+      </nav>
+      <div class="flex flex-col items-center gap-space-xs w-full px-space-xs pb-space-xs">
+        <button id="role-switch-side" type="button" class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface" title="Your access" aria-label="Your access and sign out" aria-haspopup="dialog" aria-controls="role-dialog"><span class="material-symbols-outlined text-[18px]" aria-hidden="true">manage_accounts</span></button>
+      </div>
+    </aside>
+
+    <div class="pl-14">
+      <main id="screen" tabindex="-1" class="app-main relative w-full min-h-screen bg-surface px-gutter pb-space-md" aria-live="polite"></main>
+    </div>
+
+    <dialog id="role-dialog" aria-labelledby="role-dialog-title" class="rounded-xl p-0 max-w-5xl w-full bg-surface-container-lowest text-on-surface shadow-xl">
+      <div class="p-space-lg flex flex-col gap-space-md">
+        <div class="flex items-start justify-between">
+          <div>
+            <h2 id="role-dialog-title" class="font-headline-sm text-headline-sm">Your access</h2>
+            <p id="role-help" class="font-body-compact text-body-compact text-on-surface-variant">For the prototype demo only. Each role sees only what it is allowed to see; the server enforces it.</p>
+          </div>
+          <button type="button" data-close class="p-1 rounded text-on-surface-variant hover:text-on-surface" aria-label="Close"><span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span></button>
+        </div>
+        <div id="role-list" class="flex flex-col gap-space-xs max-h-[60vh] overflow-y-auto"></div>
+        <button type="button" id="show-rbac" class="self-start h-8 px-space-md rounded bg-surface-container-high font-label-default text-label-default">Show access-control matrix (RBAC)</button>
+        <div id="rbac-box"></div>
+        <form method="post" action="/auth/logout" class="flex justify-end pt-space-xs border-t border-surface-container">
+          <button type="submit" class="h-8 px-space-md rounded bg-surface-container hover:bg-surface-container-high font-label-default text-label-default">Sign out</button>
+        </form>
+      </div>
+    </dialog>
+    <div id="toast" role="status" class="fixed bottom-6 right-6 z-50 hidden bg-inverse-surface text-inverse-on-surface px-space-lg py-space-md rounded-xl shadow-xl max-w-sm font-body-compact text-body-compact"></div>
+  </body>
+</html>

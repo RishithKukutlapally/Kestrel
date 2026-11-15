@@ -1,0 +1,14 @@
+.venv
+**/node_modules
+**/__pycache__
+*.db
+.env
+.env.*
+LOGINS.local.md
+Design
+docs
+backend/tests
+frontend/src
+frontend/e2e
+frontend/tests
+frontend/test-results

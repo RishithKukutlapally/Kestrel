@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Montserrat:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-tertiary-fixed-variant": "#004e60",
+          "surface-dim": "#0e131e",
+          "inverse-surface": "#dee2f2",
+          "primary-container": "#02f576",
+          "background": "#0e131e",
+          "outline-variant": "#3b4b3c",
+          "surface-border": "#232D42",
+          "on-secondary-container": "#c5baff",
+          "primary-fixed": "#65ff90",
+          "on-surface": "#dee2f2",
+          "surface-container-highest": "#303541",
+          "tertiary-fixed-dim": "#47d6ff",
+          "text-muted": "#A1A6B4",
+          "secondary-container": "#4f00f1",
+          "error-container": "#93000a",
+          "surface-container": "#1b1f2b",
+          "on-secondary": "#30009b",
+          "tertiary-fixed": "#b6ebff",
+          "surface-charcoal": "#141B2D",
+          "outline": "#849584",
+          "tertiary-container": "#8be1ff",
+          "error": "#ffb4ab",
+          "risk-crimson": "#FF3366",
+          "surface-tint": "#00e46d",
+          "on-primary-container": "#006b2f",
+          "surface-container-lowest": "#090e19",
+          "surface": "#0e131e",
+          "secondary-fixed": "#e6deff",
+          "secondary-fixed-dim": "#c9beff",
+          "on-secondary-fixed": "#1b0062",
+          "on-tertiary": "#003543",
+          "secondary": "#c9beff",
+          "on-secondary-fixed-variant": "#4600d8",
+          "risk-amber": "#FFB800",
+          "primary": "#02f576",
+          "tertiary": "#dff5ff",
+          "on-surface-variant": "#bacbb8",
+          "surface-bright": "#343946",
+          "on-primary": "#003916",
+          "surface-container-high": "#252a36",
+          "surface-variant": "#303541",
+          "on-primary-fixed-variant": "#005323",
+          "primary-fixed-dim": "#00e46d",
+          "on-background": "#dee2f2",
+          "surface-container-low": "#171b27",
+          "on-tertiary-container": "#00657c",
+          "on-tertiary-fixed": "#001f28",
+          "inverse-on-surface": "#2b303c",
+          "inverse-primary": "#006d31",
+          "on-primary-fixed": "#00210a",
+          "on-error-container": "#ffdad6",
+          "on-error": "#690005"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter": "1.5rem",
+          "margin": "2rem",
+          "space-md": "1rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [ "Montserrat", "sans-serif" ],
+          "body-sm": [ "Inter", "sans-serif" ],
+          "body-lg": [ "Inter", "sans-serif" ],
+          "label-code": [ "JetBrains Mono", "monospace" ],
+          "display-hero": [ "Montserrat", "sans-serif" ],
+          "label-audit": [ "JetBrains Mono", "monospace" ],
+          "headline-sm": [ "Montserrat", "sans-serif" ],
+          "headline-lg": [ "Montserrat", "sans-serif" ],
+          "headline-lg-mobile": [ "Montserrat", "sans-serif" ],
+          "body-md": [ "Inter", "sans-serif" ],
+          "headline-md": [ "Montserrat", "sans-serif" ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [ "32px", { "lineHeight": "40px", "fontWeight": "700" } ],
+          "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ],
+          "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ],
+          "label-code": [ "12px", { "lineHeight": "16px", "fontWeight": "500" } ],
+          "display-hero": [ "48px", { "lineHeight": "56px", "fontWeight": "800" } ],
+          "label-audit": [ "11px", { "lineHeight": "14px", "fontWeight": "600" } ],
+          "headline-sm": [ "18px", { "lineHeight": "24px", "fontWeight": "600" } ],
+          "headline-lg": [ "32px", { "lineHeight": "40px", "fontWeight": "700" } ],
+          "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "fontWeight": "700" } ],
+          "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ],
+          "headline-md": [ "22px", { "lineHeight": "28px", "fontWeight": "600" } ]
+        }
+      },
+    },
+  }
+</script></head>
+<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top App Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-border">
+<div class="h-14 w-full px-gutter flex items-center justify-between">
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<img alt="Kestrel Logo" class="h-8 w-auto object-contain filter brightness-110" src="https://lh3.googleusercontent.com/aida/ALJJyrA3sLvRoIaxPcJQ-pjAuumyfrHw_R9aWUp_UrLhm1i_ItYGEfnMcqtuyb4kqgkzjLslXLQkAEYnWt4C0MDE0DKsnLMadpS_DJdhWZWScwymFjfeYOGdsi6LWlahPL2s3Hjn6mkatolWcd_h59KRMhx7-PtYpzz6DGmnk26jQrTiMDvAIVmC_yTKStQ1iSWJI6BAr-cmy4bfYB6_LYwcx9rkpu-caQ9v5m7RSMBO_kuK"/>
+<span class="font-headline-sm text-headline-sm font-bold text-white tracking-tight flex items-center gap-1.5">
+          Kestrel
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+</span>
+<span class="px-space-sm py-0.5 rounded bg-surface-container-high border border-surface-border text-text-muted font-label-audit text-label-audit">Document Tracker · SME Lending (≤₹25L)</span>
+</div>
+<nav class="hidden xl:flex items-center gap-1 ml-space-md" data-active-classes="bg-surface-container-high text-primary font-semibold border-b-2 border-primary">
+<a class="px-space-md py-1.5 rounded-t text-text-muted hover:text-white transition-colors text-xs font-medium" data-path="application-queue" href="#/queue">Application Queue</a>
+<a class="px-space-md py-1.5 rounded-t text-text-muted hover:text-white transition-colors text-xs font-medium" data-path="checklist-and-timeline" href="#/checklist">Checklist &amp; Timeline</a>
+<a aria-current="page" class="px-space-md py-1.5 rounded-t bg-surface-container-high text-primary font-semibold border-b-2 border-primary text-xs flex items-center gap-1.5" data-path="reminder-composer" href="#/composer">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          Reminder Composer
+        </a>
+<a class="px-space-md py-1.5 rounded-t text-text-muted hover:text-white transition-colors text-xs font-medium" data-path="analyst-file-view" href="#/analyst">Analyst File View</a>
+<a class="px-space-md py-1.5 rounded-t text-text-muted hover:text-white transition-colors text-xs font-medium" data-path="oversight-and-audit" href="#/oversight">Oversight &amp; Audit</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-text-muted text-[16px]">search</span>
+<input class="h-8 pl-8 pr-3 rounded bg-surface-container-low border border-surface-border text-on-surface placeholder:text-text-muted text-xs focus:outline-none focus:border-primary w-64 transition-all" placeholder="Search client, ID (KF-2026-XXXX)..." type="text"/>
+</div>
+<div class="hidden lg:flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container-low border border-surface-border text-text-muted font-label-audit text-label-audit">
+<span class="material-symbols-outlined text-[14px] text-tertiary-fixed-dim">location_on</span>
+<span>Mumbai - Andheri West Hub</span>
+</div>
+<div class="hidden md:flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-charcoal border border-surface-border text-text-muted font-label-audit text-label-audit">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="text-on-surface">Live sync · Zero automatic sends</span>
+</div>
+<div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-border">
+<div class="hidden sm:flex flex-col text-right">
+<span class="text-xs font-semibold text-white leading-none">Arjun Nair</span>
+<span class="font-label-audit text-label-audit text-primary leading-tight mt-0.5">RM View</span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-surface-container-high border border-surface-border flex items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sub-header Guardrail Notification -->
+<div class="h-7 w-full bg-surface-container-low border-t border-surface-border px-gutter flex items-center justify-between text-text-muted font-label-audit text-label-audit">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[15px]">lock</span>
+<span class="font-semibold text-white">RM Protocol:</span>
+<span>Draft reminders require human RM review and authorization before dispatch. No reminders or credit decisions are sent autonomously.</span>
+</div>
+<button class="flex items-center gap-0.5 text-text-muted hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[14px]">close</span>
+<span>Dismiss</span>
+</button>
+</div>
+</header>
+<!-- Left Nav Sidebar -->
+<aside class="fixed left-0 top-21 bottom-0 w-14 bg-surface-container-lowest border-r border-surface-border z-40 flex flex-col justify-between items-center py-space-sm">
+<nav class="flex flex-col items-center gap-2 w-full px-space-xs" data-active-classes="bg-primary/10 text-primary border-l-2 border-primary">
+<a class="w-10 h-10 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-white transition-colors" data-path="application-queue" href="#/queue" title="Application Queue">
+<span class="material-symbols-outlined text-[20px]">table_rows</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-white transition-colors" data-path="checklist-and-timeline" href="#/checklist" title="Checklist &amp; Timeline">
+<span class="material-symbols-outlined text-[20px]">checklist</span>
+</a>
+<a aria-current="page" class="w-10 h-10 flex items-center justify-center rounded bg-primary/15 text-primary border border-primary/30 transition-colors shadow-[0_0_12px_rgba(2,245,118,0.2)]" data-path="reminder-composer" href="#/composer" title="Reminder Composer">
+<span class="material-symbols-outlined text-[20px]">outgoing_mail</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-white transition-colors" data-path="analyst-file-view" href="#/analyst" title="Analyst File View">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-white transition-colors" data-path="oversight-and-audit" href="#/oversight" title="Oversight &amp; Audit">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</a>
+</nav>
+<div class="flex flex-col items-center gap-2 w-full px-space-xs pb-space-xs">
+<button class="w-10 h-10 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-white" title="System Help &amp; SOP">
+<span class="material-symbols-outlined text-[18px]">help</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded text-text-muted hover:bg-surface-container-high hover:text-white" title="Branch Operational Shift">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Main Stage Content Area -->
+<div class="pl-14">
+<main class="relative pt-21 w-full min-h-screen bg-surface px-gutter py-space-md">
+<div class="flex flex-col w-full max-w-[1600px] mx-auto">
+<!-- Top Operational Metadata Strip & RM Protocol Alert -->
+<div class="flex flex-col gap-space-sm mb-space-md">
+<!-- Breadcrumb & Workflow Stage Anchor -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-text-muted font-label-audit text-label-audit">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#/queue">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+<span>SME Queue</span>
+</a>
+<span class="material-symbols-outlined text-[14px] text-surface-border">chevron_right</span>
+<a class="hover:text-primary transition-colors text-white" href="#/checklist">KF-2026-1049</a>
+<span class="material-symbols-outlined text-[14px] text-surface-border">chevron_right</span>
+<span class="text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit_document</span>
+              Reminder Composer (Dispatch Authorization)
+            </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-charcoal border border-surface-border text-on-surface font-label-audit text-label-audit">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span>Session Actor: <strong class="text-white">Vikram Desai</strong> (RM - SME Desk #4)</span>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-high border border-surface-border text-text-muted font-label-audit text-label-audit">
+<span class="material-symbols-outlined text-[14px] text-primary">shield</span>
+<span>SOC2 / RBI-NBFC Compliant Channel</span>
+</div>
+</div>
+</div>
+<!-- RM Safety Guardrail Banner -->
+<div class="w-full bg-surface-charcoal border border-surface-border rounded-xl p-space-md flex items-start justify-between gap-space-md shadow-lg relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 w-1 bg-risk-crimson"></div>
+<div class="flex items-start gap-space-md pl-1">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-surface-border text-primary flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-headline-sm text-headline-sm font-bold text-white tracking-tight">Draft for RM Review — Strict Human-in-the-Loop Protocol</span>
+<span class="px-2 py-0.5 rounded bg-risk-crimson/20 border border-risk-crimson/40 text-risk-crimson font-label-audit text-label-audit uppercase tracking-wider font-bold">Zero Autonomous Dispatch</span>
+</div>
+<p class="font-body-md text-xs text-text-muted mt-1 leading-relaxed">
+                Drafts never send automatically. Verify selected outstanding documents, client communication channels, and legal cure cutoff windows before authorizing dispatch to Omkar Precision Forgings Pvt Ltd.
+              </p>
+</div>
+</div>
+<div class="hidden xl:flex flex-col items-end text-right shrink-0 bg-surface-container-low px-3 py-2 rounded-lg border border-surface-border">
+<span class="font-label-audit text-label-audit text-text-muted uppercase tracking-wider">Application Master File</span>
+<span class="font-label-code text-sm font-bold text-primary mt-0.5">KF-2026-1049 · ₹24,50,000</span>
+</div>
+</div>
+</div>
+<!-- Borrower Summary Key Card -->
+<div class="w-full bg-surface-container-low border border-surface-border rounded-xl p-space-md mb-space-md shadow-lg flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-surface-charcoal border border-primary/30 text-primary flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 shadow-[0_0_15px_rgba(2,245,118,0.15)]">
+            OP
+          </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h2 class="font-headline-sm text-headline-sm text-white font-bold">Omkar Precision Forgings Pvt Ltd</h2>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-surface-border text-text-muted font-label-audit text-label-audit">GSTIN: 27AABCO8941K1ZM</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-surface-border text-tertiary-fixed-dim font-label-audit text-label-audit">Machinery Term Loan</span>
+</div>
+<div class="flex items-center gap-space-md text-text-muted font-body-md text-xs mt-1.5 flex-wrap">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-text-muted">person</span>
+<strong class="text-white font-medium">Director:</strong> Pradeep Joshi
+              </span>
+<span class="text-surface-border">•</span>
+<span class="flex items-center gap-1.5 font-label-code text-xs text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary">phone_iphone</span>
+                +91 98201 44821
+              </span>
+<span class="text-surface-border">•</span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-text-muted">mail</span>
+<span class="text-on-surface">pradeep@omkarprecision.com</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Right File Stats in Card -->
+<div class="flex items-center gap-space-md self-end lg:self-center bg-surface-container-lowest border border-surface-border px-space-md py-space-sm rounded-lg">
+<div class="flex flex-col text-right">
+<span class="font-label-audit text-label-audit text-text-muted uppercase">Current Stage</span>
+<span class="font-body-md text-xs font-bold text-risk-amber flex items-center gap-1 justify-end">
+<span class="w-1.5 h-1.5 rounded-full bg-risk-amber"></span>
+              Credit File Blocked
+            </span>
+</div>
+<div class="w-px h-8 bg-surface-border"></div>
+<div class="flex flex-col text-right">
+<span class="font-label-audit text-label-audit text-text-muted uppercase">Pending Checklist</span>
+<span class="font-label-code text-xs font-bold text-risk-crimson">3 of 8 Docs Missing</span>
+</div>
+<div class="w-px h-8 bg-surface-border"></div>
+<div class="flex flex-col text-right">
+<span class="font-label-audit text-label-audit text-text-muted uppercase">Assigned RM</span>
+<span class="font-body-md text-xs font-semibold text-white">Vikram Desai</span>
+</div>
+</div>
+</div>
+<!-- Dual-Pane Master Detail Composer Canvas (Virtusa Enterprise 60/40 ratio) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md mb-space-xl">
+<!-- LEFT PANE: Configuration & Targeted Checklist (7 cols = ~58%) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Panel Card 1: Checklist Item Selection -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-lg shadow-lg flex flex-col">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm border-b border-surface-border">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">checklist_rtl</span>
+<h3 class="font-headline-sm text-headline-sm text-white font-bold">1. Target Document Checklist</h3>
+</div>
+<span class="px-2.5 py-1 rounded bg-primary/15 border border-primary/40 text-primary font-label-audit text-label-audit font-semibold tracking-wide" id="selected-counter-badge">
+                3 Selected for Reminder
+              </span>
+</div>
+<p class="font-body-md text-xs text-text-muted mb-space-md leading-relaxed">
+              Check the artifacts that are actively impeding underwriter assessment. These items will be injected directly into the borrower notification template.
+            </p>
+<!-- Checklist Rows -->
+<div class="flex flex-col gap-2" id="checklist-group">
+<!-- Item 1: SBI CC Statement (Overdue) -->
+<label class="flex items-start gap-space-md p-space-md rounded-lg bg-surface-charcoal border border-surface-border hover:border-primary/40 transition-colors cursor-pointer group">
+<input checked="" class="doc-checkbox mt-1 w-4 h-4 rounded border-surface-border bg-surface-container-high text-primary focus:ring-primary focus:ring-offset-surface-dim accent-primary cursor-pointer" data-doc-id="doc-1" data-title="State Bank of India Cash Credit Account Stmt (Oct 2025 – Jan 2026)" type="checkbox"/>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-body-md text-sm font-semibold text-white group-hover:text-primary transition-colors">
+                      State Bank of India Cash Credit Account Stmt (Oct 2025 – Jan 2026)
+                    </span>
+<span class="font-label-audit text-label-audit text-text-muted mt-0.5">Banking Analysis Artifact · Required for Monthly Average Turnover Verification</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-risk-crimson/15 border border-risk-crimson/30 text-risk-crimson font-label-audit text-label-audit font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span>
+                      Overdue · 9 days
+                    </span>
+</div>
+</div>
+</label>
+<!-- Item 2: GSTR-3B Filings (Overdue) -->
+<label class="flex items-start gap-space-md p-space-md rounded-lg bg-surface-charcoal border border-surface-border hover:border-primary/40 transition-colors cursor-pointer group">
+<input checked="" class="doc-checkbox mt-1 w-4 h-4 rounded border-surface-border bg-surface-container-high text-primary focus:ring-primary focus:ring-offset-surface-dim accent-primary cursor-pointer" data-doc-id="doc-2" data-title="GSTR-3B Monthly Filings (Last 6 Months: Aug 2025 – Jan 2026)" type="checkbox"/>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-body-md text-sm font-semibold text-white group-hover:text-primary transition-colors">
+                      GSTR-3B Monthly Filings (Last 6 Months)
+                    </span>
+<span class="font-label-audit text-label-audit text-text-muted mt-0.5">Tax Compliance Record · Corroborates Revenue Velocity &amp; Tax Cleared Stature</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-risk-crimson/15 border border-risk-crimson/30 text-risk-crimson font-label-audit text-label-audit font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span>
+                      Overdue · 9 days
+                    </span>
+</div>
+</div>
+</label>
+<!-- Item 3: Provisional Balance Sheet (Due Today) -->
+<label class="flex items-start gap-space-md p-space-md rounded-lg bg-surface-charcoal border border-surface-border hover:border-primary/40 transition-colors cursor-pointer group">
+<input checked="" class="doc-checkbox mt-1 w-4 h-4 rounded border-surface-border bg-surface-container-high text-primary focus:ring-primary focus:ring-offset-surface-dim accent-primary cursor-pointer" data-doc-id="doc-3" data-title="Provisional Balance Sheet &amp; Profit/Loss FY 2025-26 (H1 Signed by CA)" type="checkbox"/>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-body-md text-sm font-semibold text-white group-hover:text-primary transition-colors">
+                      Provisional Balance Sheet &amp; Profit/Loss FY 2025-26 (H1)
+                    </span>
+<span class="font-label-audit text-label-audit text-text-muted mt-0.5">Financials &amp; Solvency · CA Attestation Required for Sub-₹25L Working Capital</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-risk-amber/15 border border-risk-amber/30 text-risk-amber font-label-audit text-label-audit font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">alarm</span>
+                      Due Today
+                    </span>
+</div>
+</div>
+</label>
+<!-- Item 4: GSTR-1 Annual Summary (Unchecked / Due in 2 days) -->
+<label class="flex items-start gap-space-md p-space-md rounded-lg bg-surface-container-lowest border border-surface-border/60 hover:border-surface-border transition-colors cursor-pointer opacity-70 hover:opacity-100 group">
+<input class="doc-checkbox mt-1 w-4 h-4 rounded border-surface-border bg-surface-container-high text-primary focus:ring-primary focus:ring-offset-surface-dim accent-primary cursor-pointer" data-doc-id="doc-4" data-title="GSTR-1 Annual Sales Summary (FY 2024-25)" type="checkbox"/>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-body-md text-sm font-semibold text-on-surface group-hover:text-white transition-colors">
+                      GSTR-1 Annual Summary (FY 2024-25)
+                    </span>
+<span class="font-label-audit text-label-audit text-text-muted mt-0.5">Annual Reconciliation · Supplementary artifact</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-surface-border text-text-muted font-label-audit text-label-audit font-medium">
+                      Due in 2 days (Optional)
+                    </span>
+</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Panel Card 2: Delivery Channels & Escalation Tone -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Channels Box -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-lg shadow-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">share</span>
+<h3 class="font-headline-sm text-headline-sm text-white font-bold">2. Dispatch Channels</h3>
+</div>
+<p class="font-body-md text-xs text-text-muted mb-space-md">
+                  Multi-channel delivery routes for urgent response.
+                </p>
+<div class="flex flex-col gap-2">
+<!-- WhatsApp Primary -->
+<div class="flex items-start justify-between p-space-sm rounded-lg bg-surface-charcoal border border-surface-border">
+<div class="flex items-start gap-space-sm">
+<div class="w-7 h-7 rounded bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-xs text-white font-semibold">WhatsApp Business (Primary)</span>
+<span class="font-label-audit text-label-audit text-text-muted">Verified Meta API Template · Official Kestrel Tick</span>
+</div>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded border-surface-border bg-surface-container-high text-primary focus:ring-primary accent-primary cursor-not-allowed opacity-80" disabled="" type="checkbox"/>
+</div>
+<!-- Official Email -->
+<div class="flex items-start justify-between p-space-sm rounded-lg bg-surface-charcoal border border-surface-border">
+<div class="flex items-start gap-space-sm">
+<div class="w-7 h-7 rounded bg-tertiary-fixed-dim/10 border border-tertiary-fixed-dim/20 text-tertiary-fixed-dim flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">mark_email_read</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-xs text-white font-semibold">Official Email Delivery</span>
+<span class="font-label-audit text-label-audit text-text-muted">Includes 256-bit encrypted direct upload token</span>
+</div>
+</div>
+<input checked="" class="mt-1 w-4 h-4 rounded border-surface-border bg-surface-container-high text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</div>
+<!-- SMS Alert notification -->
+<div class="flex items-start justify-between p-space-sm rounded-lg bg-surface-charcoal border border-surface-border">
+<div class="flex items-start gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">sms</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-xs text-white font-semibold">SMS Alert Ping</span>
+<span class="font-label-audit text-label-audit text-text-muted">DLT-Approved Header: KSTREL-SME</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-dim after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-2 flex items-center gap-1.5 text-text-muted font-label-audit text-label-audit border-t border-surface-border">
+<span class="material-symbols-outlined text-[14px] text-primary">info</span>
+<span>Borrower opt-in confirmed via Aadhaar eSign consent form.</span>
+</div>
+</div>
+<!-- Tone & Cutoff Box -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-lg shadow-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-white font-bold">3. Escalation &amp; Due Date</h3>
+</div>
+<p class="font-body-md text-xs text-text-muted mb-space-md">
+                  Formality tier and unambiguous cure deadline.
+                </p>
+<!-- Tone Selector -->
+<div class="flex flex-col gap-1 mb-space-md">
+<label class="font-label-audit text-label-audit uppercase text-text-muted">Template Escalation Round</label>
+<div class="relative">
+<select class="w-full h-8 pl-2.5 pr-8 rounded bg-surface-charcoal border border-surface-border text-white font-body-md text-xs focus:outline-none focus:border-primary appearance-none cursor-pointer" id="tone-selector">
+<option value="round-1">Reminder Round 1 — Gentle advisory (First notice)</option>
+<option selected="" value="round-2">Reminder Round 2 (Firm, formal reminder detailing analyst file block)</option>
+<option value="round-3">Reminder Round 3 — Final Notice before File Closure / Inactivity</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-[16px] pointer-events-none text-text-muted">expand_more</span>
+</div>
+</div>
+<!-- Target Submission Cutoff -->
+<div class="flex flex-col gap-1">
+<label class="font-label-audit text-label-audit uppercase text-text-muted">Mandatory Submission Cutoff</label>
+<div class="relative">
+<div class="w-full h-8 px-2.5 rounded bg-surface-charcoal border border-surface-border text-white font-label-code text-xs flex items-center justify-between">
+<span class="font-medium text-primary" id="deadline-display">Friday, 27 Feb 2026, 05:00 PM IST</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted">calendar_clock</span>
+</div>
+</div>
+<span class="font-label-audit text-label-audit text-text-muted">Standard 48-hour cure window allocated for working capital credit desks.</span>
+</div>
+</div>
+<!-- RM Direct Contact Verification Note -->
+<div class="mt-space-md p-space-sm rounded bg-surface-charcoal border border-surface-border flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-audit text-label-audit text-text-muted">Borrower Contact Callback</span>
+<span class="font-label-code text-xs font-semibold text-white">Vikram Desai (+91 98765 21094)</span>
+</div>
+<button class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-bright border border-surface-border font-label-audit text-label-audit text-primary transition-colors">
+                  Edit RM Info
+                </button>
+</div>
+</div>
+</div>
+<!-- Quick Operational Metrics Widget -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md shadow-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<!-- Circular Progress Ring (62.5% Complete) -->
+<div class="relative w-12 h-12 shrink-0 flex items-center justify-center">
+<svg class="w-12 h-12 -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-charcoal" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="62.5, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<span class="absolute font-label-code text-xs font-bold text-primary">63%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-xs font-bold text-white">Application Verification Velocity</span>
+<span class="font-body-md text-xs text-text-muted">5 of 8 mandatory files verified by Senior Analyst Neha Sharma. Dispatching this notice keeps TAT under 4.2 days.</span>
+</div>
+</div>
+<div class="hidden sm:flex items-center gap-space-xs text-text-muted font-label-audit text-label-audit bg-surface-charcoal border border-surface-border px-3 py-2 rounded-lg shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">speed</span>
+<span>Branch SLA Target: <strong class="text-white">&lt; 96 Hours</strong></span>
+</div>
+</div>
+</div>
+<!-- RIGHT PANE: High-Fidelity Draft Preview Card (5 cols = ~42%) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- The Preview Device / Card Mockup -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<!-- Header Pill / Stamp -->
+<div class="bg-surface-container-lowest border-b border-surface-border px-space-md py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-risk-crimson animate-ping"></span>
+<span class="font-label-audit text-label-audit uppercase tracking-widest font-bold text-risk-crimson">DRAFT FOR RM REVIEW (NOT SENT)</span>
+</div>
+<div class="flex items-center gap-1 text-text-muted font-label-audit text-label-audit">
+<span class="material-symbols-outlined text-[14px] text-primary">preview</span>
+<span class="text-white">Live Render</span>
+</div>
+</div>
+<!-- Channel Switching Tab in Mockup -->
+<div class="flex items-center bg-surface-charcoal border-b border-surface-border px-space-md pt-2 gap-2">
+<button class="px-space-md py-1.5 rounded-t text-primary font-bold font-body-md text-xs bg-surface-container-low border-t-2 border-primary flex items-center gap-1.5" id="tab-whatsapp">
+<span class="material-symbols-outlined text-[15px]">chat</span>
+<span>WhatsApp Output</span>
+</button>
+<button class="px-space-md py-1.5 rounded-t text-text-muted hover:text-white font-body-md text-xs flex items-center gap-1.5 transition-colors" id="tab-email">
+<span class="material-symbols-outlined text-[15px]">mail</span>
+<span>Email Body</span>
+</button>
+</div>
+<!-- Message Body Container (Formatted as Verified SME Communication) -->
+<div class="p-space-lg bg-surface-container-low flex flex-col gap-space-md">
+<!-- Mock WhatsApp Message Bubble (Dark high-contrast high-legibility theme) -->
+<div class="rounded-xl p-space-md bg-surface-charcoal border border-surface-border text-on-surface flex flex-col gap-space-sm shadow-md relative">
+<!-- Sender Header in Bubble -->
+<div class="flex items-center justify-between pb-2 border-b border-surface-border/50">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="font-body-md text-xs font-bold text-white">Kestrel SME Lending (Official Verified Sender)</span>
+</div>
+<span class="font-label-code text-[11px] text-text-muted">Today · Ready for dispatch</span>
+</div>
+<!-- Dynamic Message Content -->
+<div class="font-body-md text-xs text-on-surface space-y-2 leading-relaxed" id="message-text-target">
+<p>Dear Mr. <strong class="text-white font-bold">Pradeep Joshi</strong>,</p>
+<p>Regarding your loan application <strong class="text-primary font-label-code">KF-2026-1049</strong> for <strong class="text-white font-semibold">Omkar Precision Forgings Pvt Ltd</strong>:</p>
+<p class="text-text-muted">Our credit appraisal team requires the following <span class="font-bold text-risk-crimson" id="preview-item-count">3 pending documents</span> to unblock file evaluation and finalize credit line sizing:</p>
+<!-- Injected Bullet List -->
+<div class="p-space-sm rounded bg-surface-container-lowest border border-surface-border space-y-1.5 font-label-code text-xs text-on-surface" id="preview-bullets">
+<div class="flex items-start gap-1.5">
+<span class="font-bold text-primary">1.</span>
+<span class="text-white">State Bank of India Cash Credit Account Stmt (Oct 2025 – Jan 2026)</span>
+</div>
+<div class="flex items-start gap-1.5">
+<span class="font-bold text-primary">2.</span>
+<span class="text-white">GSTR-3B Monthly Filings (Last 6 Months: Aug 2025 – Jan 2026)</span>
+</div>
+<div class="flex items-start gap-1.5">
+<span class="font-bold text-primary">3.</span>
+<span class="text-white">Provisional Balance Sheet &amp; Profit/Loss FY 2025-26 (H1 Signed by CA)</span>
+</div>
+</div>
+<p class="text-text-muted">
+                    Please upload these items by <strong class="text-white font-semibold" id="preview-deadline">Friday, 27 Feb 2026, 05:00 PM IST</strong> via your secure high-speed mobile portal link:
+                  </p>
+<!-- Dynamic Link Display Box -->
+<div class="p-2.5 rounded bg-primary/10 border border-primary/30 text-white flex items-center justify-between font-label-code text-[11px]">
+<span class="truncate text-primary">https://upload.kestrellending.in/sme/kf-1049?token=auth_78f9</span>
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0 ml-1">lock</span>
+</div>
+<p class="text-text-muted pt-1">
+                    For questions or physical branch pickup assistance, contact your Relationship Manager <strong class="text-white font-medium">Vikram Desai</strong> directly at <span class="font-label-code text-primary">+91 98765 21094</span>.
+                  </p>
+<div class="pt-1 text-text-muted font-label-audit text-label-audit border-t border-surface-border/50">
+                    — Kestrel SME Lending Operations Desk (Andheri West Hub, Mumbai)
+                  </div>
+</div>
+<!-- WhatsApp delivery indicator footer -->
+<div class="flex items-center justify-end gap-1 pt-1 text-text-muted font-label-audit text-label-audit">
+<span>Preview Mode</span>
+<span class="material-symbols-outlined text-[14px] text-primary">done_all</span>
+</div>
+</div>
+<!-- Secondary Channel Snapshot Card -->
+<div class="p-space-md rounded-lg bg-surface-charcoal border border-surface-border flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">alternate_email</span>
+<div class="flex flex-col">
+<span class="font-body-md text-xs font-semibold text-white">Simultaneous Email Notification</span>
+<span class="font-label-audit text-label-audit text-text-muted">To: pradeep@omkarprecision.com · CC: ops@kestrellending.in</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+<!-- Legal & Compliance Audit Note -->
+<div class="p-space-md rounded-lg bg-surface-charcoal/80 border border-surface-border text-on-surface flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[18px] shrink-0 mt-0.5">lock_clock</span>
+<div class="flex flex-col">
+<span class="font-body-md text-xs font-semibold text-white">Compliance Audit Trail Guarantee</span>
+<p class="font-body-md text-xs text-text-muted mt-0.5 leading-relaxed">
+                    Authorizing this reminder will record a permanent timestamped entry in the application timeline and regulatory audit register with RM <strong class="text-white">Vikram Desai</strong> as authorizing actor.
+                  </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Escalation Protocol Card -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md shadow-lg flex items-center justify-between text-text-muted font-body-md text-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-risk-amber text-[20px]">notification_important</span>
+<span>Next Escalation Trigger: <strong class="text-white">Auto-alert to Branch Head</strong> if unsubmitted after deadline.</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-surface-border text-primary font-label-code text-xs">
+              Stage 2 / 3
+            </span>
+</div>
+</div>
+</div>
+<!-- PERSISTENT BOTTOM WORKSTATION ACTION BAR -->
+<div class="w-full bg-surface-container-low border border-surface-border rounded-xl p-space-md shadow-xl flex flex-col md:flex-row items-center justify-between gap-space-md mb-space-lg">
+<!-- Left Cancel / Return Action -->
+<div class="flex items-center gap-space-sm w-full md:w-auto">
+<a class="h-9 px-space-md rounded bg-surface-charcoal border border-surface-border text-on-surface hover:text-white hover:bg-surface-container-high transition-colors font-body-md text-xs font-semibold flex items-center gap-1.5 w-full md:w-auto justify-center" href="#/checklist">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Cancel &amp; Return to Checklist</span>
+</a>
+<button class="h-9 px-space-md rounded bg-surface-charcoal border border-surface-border text-on-surface hover:text-white hover:bg-surface-container-high transition-colors font-body-md text-xs font-semibold flex items-center gap-1.5" id="btn-custom-notes">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>Edit Custom Notes</span>
+</button>
+</div>
+<!-- Right Authorization Actions -->
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end">
+<!-- Schedule for Later -->
+<button class="h-9 px-space-md rounded bg-surface-charcoal border border-surface-border text-on-surface hover:text-white hover:bg-surface-container-high transition-colors font-body-md text-xs font-semibold flex items-center gap-1.5" id="btn-schedule">
+<span class="material-symbols-outlined text-[16px]">schedule_send</span>
+<span>Schedule for Later</span>
+</button>
+<!-- Primary Prominent Electric CTA Button: Approve and Send Now -->
+<button class="h-9 px-space-lg rounded bg-primary text-on-primary hover:bg-primary-container transition-all font-body-md text-xs font-bold flex items-center gap-space-xs shadow-[0_0_15px_rgba(2,245,118,0.35)] hover:shadow-[0_0_20px_rgba(2,245,118,0.5)] active:scale-[0.98]" id="btn-approve-send">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Approve and Send Now (RM Sign-off)</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- CONFIRMATION / SIGN-OFF MODAL DIALOG (HIDDEN BY DEFAULT) -->
+<div class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-space-md" id="signoff-modal">
+<div class="bg-surface-container-low border border-surface-border rounded-xl max-w-lg w-full p-space-xl shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary/20 border border-primary/40 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm font-bold text-white">Confirm RM Authorization &amp; Dispatch</h3>
+<span class="font-label-audit text-label-audit text-text-muted">Kestrel Underwriting Regulatory Audit Sign-off</span>
+</div>
+</div>
+<button class="text-text-muted hover:text-white p-1" id="modal-close-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-space-md rounded-lg bg-surface-charcoal border border-surface-border flex flex-col gap-2">
+<div class="flex justify-between font-body-md text-xs">
+<span class="text-text-muted">Target Borrower:</span>
+<span class="font-semibold text-white">Omkar Precision Forgings Pvt Ltd</span>
+</div>
+<div class="flex justify-between font-body-md text-xs">
+<span class="text-text-muted">Channels:</span>
+<span class="font-semibold text-white">WhatsApp Verified API + Official Encrypted Email</span>
+</div>
+<div class="flex justify-between font-body-md text-xs">
+<span class="text-text-muted">Documents Demanded:</span>
+<span class="font-bold text-primary font-label-code" id="modal-doc-count">3 Documents</span>
+</div>
+<div class="flex justify-between font-body-md text-xs">
+<span class="text-text-muted">Strict Cutoff:</span>
+<span class="font-label-code text-xs font-semibold text-white">Friday, 27 Feb 2026, 05:00 PM IST</span>
+</div>
+</div>
+<div class="p-space-sm rounded bg-surface-container-high border border-surface-border text-text-muted font-label-audit text-label-audit flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0">gavel</span>
+<span>Action logs your digital signature as Vikram Desai (RM #4, Andheri West). No automated retry without prior human consent.</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="h-9 px-space-md rounded bg-surface-charcoal border border-surface-border text-on-surface hover:text-white font-body-md text-xs font-medium" id="modal-cancel-btn">
+        Cancel &amp; Edit
+      </button>
+<button class="h-9 px-space-lg rounded bg-primary text-on-primary hover:bg-primary-container font-body-md text-xs font-bold flex items-center gap-1.5 shadow-[0_0_12px_rgba(2,245,118,0.3)]" id="modal-confirm-btn">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Execute RM Dispatch</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SUCCESS TOAST / NOTIFICATION (HIDDEN BY DEFAULT) -->
+<div class="fixed bottom-6 right-6 z-50 bg-surface-container-low border border-primary/40 text-on-surface px-space-lg py-space-md rounded-xl shadow-2xl hidden flex items-center gap-space-md transition-all duration-300" id="dispatch-toast">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-[0_0_10px_rgba(2,245,118,0.4)]">
+<span class="material-symbols-outlined text-[18px]">done</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-xs font-bold text-white">Reminder Dispatched &amp; Logged</span>
+<span class="font-label-audit text-label-audit text-text-muted">Audit Entry #KST-9021 recorded. Redirecting to queue...</span>
+</div>
+</div>
+<!-- Interactive Client-side Coordination Logic -->
+<script>
+  (function initComposer() {
+    const checkboxes = document.querySelectorAll('.doc-checkbox');
+    const counterBadge = document.getElementById('selected-counter-badge');
+    const previewCount = document.getElementById('preview-item-count');
+    const previewBullets = document.getElementById('preview-bullets');
+    const modalDocCount = document.getElementById('modal-doc-count');
+    
+    const approveBtn = document.getElementById('btn-approve-send');
+    const modal = document.getElementById('signoff-modal');
+    const modalCancel = document.getElementById('modal-cancel-btn');
+    const modalClose = document.getElementById('modal-close-btn');
+    const modalConfirm = document.getElementById('modal-confirm-btn');
+    const toast = document.getElementById('dispatch-toast');
+
+    const toneSelect = document.getElementById('tone-selector');
+    const tabWhatsApp = document.getElementById('tab-whatsapp');
+    const tabEmail = document.getElementById('tab-email');
+
+    // Update Preview upon Checkbox modifications
+    function updateChecklistPreview() {
+      const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+      const count = checkedBoxes.length;
+
+      // Update badge & counter
+      if (counterBadge) counterBadge.textContent = `${count} Selected for Reminder`;
+      if (previewCount) previewCount.textContent = `${count} pending document${count === 1 ? '' : 's'}`;
+      if (modalDocCount) modalDocCount.textContent = `${count} Document${count === 1 ? '' : 's'}`;
+
+      // Reconstruct preview list
+      if (previewBullets) {
+        if (count === 0) {
+          previewBullets.innerHTML = '<div class="text-text-muted italic py-1">No documents selected. Please check at least one requirement.</div>';
+        } else {
+          previewBullets.innerHTML = checkedBoxes.map((cb, idx) => `
+            <div class="flex items-start gap-1.5">
+              <span class="font-bold text-primary">${idx + 1}.</span>
+              <span class="text-white">${cb.getAttribute('data-title')}</span>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateChecklistPreview);
+    });
+
+    // Modal Controls
+    if (approveBtn && modal) {
+      approveBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+      });
+    }
+
+    function closeModal() {
+      if (modal) modal.classList.add('hidden');
+    }
+
+    if (modalCancel) modalCancel.addEventListener('click', closeModal);
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+
+    // Confirm Dispatch Flow
+    if (modalConfirm) {
+      modalConfirm.addEventListener('click', () => {
+        closeModal();
+        if (toast) {
+          toast.classList.remove('hidden');
+          setTimeout(() => {
+            window.location.hash = '#/checklist';
+          }, 1800);
+        }
+      });
+    }
+
+    // Tab switcher mock
+    if (tabWhatsApp && tabEmail) {
+      tabWhatsApp.addEventListener('click', () => {
+        tabWhatsApp.classList.add('bg-surface-container-low', 'text-primary', 'font-bold', 'border-t-2', 'border-primary');
+        tabWhatsApp.classList.remove('text-text-muted');
+        tabEmail.classList.remove('bg-surface-container-low', 'text-primary', 'font-bold', 'border-t-2', 'border-primary');
+        tabEmail.classList.add('text-text-muted');
+      });
+
+      tabEmail.addEventListener('click', () => {
+        tabEmail.classList.add('bg-surface-container-low', 'text-primary', 'font-bold', 'border-t-2', 'border-primary');
+        tabEmail.classList.remove('text-text-muted');
+        tabWhatsApp.classList.remove('bg-surface-container-low', 'text-primary', 'font-bold', 'border-t-2', 'border-primary');
+        tabWhatsApp.classList.add('text-text-muted');
+      });
+    }
+  })();
+</script>
+</body></html>
