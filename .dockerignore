@@ -20,3 +20,4 @@ Design
 docs
 # Local list of demo sign-ins (contains passwords)
 LOGINS.local.md
+*.local.md

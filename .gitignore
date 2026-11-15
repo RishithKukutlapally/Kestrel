@@ -14,3 +14,4 @@ frontend/playwright-report/
 # Local list of demo sign-ins (contains passwords)
 LOGINS.local.md
 .vercel
+*.local.md
